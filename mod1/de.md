@@ -45,7 +45,7 @@ Alphanumeric codes
     - 10 decimal digits
     - 32 special characters
   - 32 nonprintable characters
-- ![ascii](https://upload.wikimedia.org/wikipedia/commons/1/1b/ASCII-Table-wide.svg)
+- ![ascii](./img/ASCII-Table-wide.svg)
 - ASCII is a 7-bit code, but usually saved in an 8-bit byte with the most significant bit as 0
   - 8-bit extension of ASCII can represent 128 more characters
   - called [extended ASCII](https://en.wikipedia.org/wiki/Extended_ASCII)
