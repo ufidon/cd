@@ -50,6 +50,45 @@ def f2b(f: float, b: int, p: int = 20) -> str:
 
   return s
 
+def atable(b:int = 10):
+  print("|", end='')
+  for i in range(b):
+    if b == 16:
+      print(" %2x "%(i), end="|")
+    else:
+      print(" %2d "%(i), end="|")
+  print("")
+
+  print("|", end='')
+  for i in range(b):
+    print(" -- ", end="|")
+  print("")
+  
+  for i in range(b):
+    print("|", end='')
+    for j in range(b):
+
+      if b == 16:          
+        print(" %2x "%(i+j), end="|")
+      elif b == 8:
+        print(" %2o "%(i+j), end="|")
+      elif b == 2:
+        print(" %2s "%(bin(i+j)[2:]), end="|")
+      else:
+        print(" %2d "%(i+j), end="|")
+     
+      # if j <= i:
+      #   if b == 16:          
+      #     print(" %2x "%(i+j), end="|")
+      #   elif b == 8:
+      #     print(" %2o "%(i+j), end="|")
+      #   elif b == 2:
+      #     print(" %2s "%(bin(i+j)[2:]), end="|")
+      #   else:
+      #     print(" %2d "%(i+j), end="|")
+      # else:
+      #   print("    ", end="|")
+    print("")
 
 def mtable(b:int = 10):
   print("|", end='')
@@ -68,15 +107,26 @@ def mtable(b:int = 10):
   for i in range(b-1):
     print("|", end='')
     for j in range(b-1):
-      if j <= i:
-        if b == 16:          
-          print(" %2x "%((i+1)*(j+1)), end="|")
-        elif b == 8:
-          print(" %2o "%((i+1)*(j+1)), end="|")
-        else:
-          print(" %2d "%((i+1)*(j+1)), end="|")
+      if b == 16:          
+        print(" %2x "%((i+1)*(j+1)), end="|")
+      elif b == 8:
+        print(" %2o "%((i+1)*(j+1)), end="|")
+      elif b == 2:
+        print(" %2s "%(bin((i+1)*(j+1))[2:]), end="|")
       else:
-        print("    ", end="|")
+        print(" %2d "%((i+1)*(j+1)), end="|")
+    
+      # if j <= i:
+      #   if b == 16:          
+      #     print(" %2x "%((i+1)*(j+1)), end="|")
+      #   elif b == 8:
+      #     print(" %2o "%((i+1)*(j+1)), end="|")
+      #   elif b == 2:
+      #     print(" %2s "%(bin((i+1)*(j+1))[2:]), end="|")
+      #   else:
+      #     print(" %2d "%((i+1)*(j+1)), end="|")
+      # else:
+      #   print("    ", end="|")
     print("")
 
 
@@ -128,4 +178,5 @@ if __name__ == "__main__":
   # print(i2b(132, 16))
   # print(f2b(.4, 16))
   
-  mtable(8)
+  mtable(16)
+  # atable(16)
