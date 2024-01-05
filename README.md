@@ -1,8 +1,8 @@
 # Fundamentals of Computer Systems
 
-- [Number systems](./mod1/README.md)
-- [Building blocks](./mod2/README.md)
-- [Design a computer](./mod3/README.md)
+- [Mod 1: Number systems](./mod1/README.md)
+- [Mod 2: Building blocks](./mod2/README.md)
+- [Mod 3: Design a computer](./mod3/README.md)
 
 # Reference textbooks
 - [Logic & Computer Design Fundamentals, 5e](https://www.pearson.com/en-us/subject-catalog/p/logic--computer-design-fundamentals/P200000003256)
