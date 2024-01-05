@@ -25,7 +25,7 @@ __Data Encoding__
 
 📝 Practice
 ---
-- $(663)_{10} = (0110\ 0110\ 0011)_{BCD}= (110 0110 0011)_2$
+- $(663)_{10} = (0110 0110 0011)_{BCD}= (110 0110 0011)_2$
   - in the notation, it takes only 11 bits
   - but inside computer, it still takes 12 bits
 
