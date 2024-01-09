@@ -390,6 +390,17 @@ Properties of the standard forms
 
 Optimize two-level circuits
 ---
+- som and PoM circuits can be implemented in two-level circuits
+  - can be optimized by minimizing the gates used
+- two popular ways for simplifying a Boolean function
+  - algebraic manipulation
+    - difficult to determine whether the simplest expression has been achieved
+  - Karnaugh map (K-map)
+    - a visual method
+    - suitable for Boolean functions of up to four variables
+
+
+
 
 # References
 - [symbolab](https://www.symbolab.com/solver/boolean-algebra-calculator)
