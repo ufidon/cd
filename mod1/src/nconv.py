@@ -130,7 +130,46 @@ def mtable(b:int = 10):
     print("")
 
 
+def b2g(n:int, w:int=4)->str:
+  f = '{:0' +str(w) + 'b}'
+  b = f.format(n)
+  g = b[0]
+  t = ''
+  
+  for k in range(w-1):
+    t = str(int(b[w-1-k]) ^ int(b[w-2-k])) + t
+  
+  g += t
+  return g
+
+def g2b(n:int, w:int=4)->str:
+  f = '{:0' +str(w) + 'b}'
+  g = f.format(n)
+  b = g[0]
+  t = ''
+  
+  for k in range(w-1):
+    o = 0
+    for l in range(w-k):
+      o ^= int(g[l])
+    t = str(o) + t
+  
+  b += t
+  return b  
+  
+
 if __name__ == "__main__":
+  ng = []
+  for n in range(16):
+    g = b2g(n)
+    m = int(g,2)
+    ng.append(m)
+    b = g2b(m)
+    nb = int(b,2)
+    print(f'{nb:02d} {b} {g} {m:02d}')
+  
+  # print(g2b(12))
+  
   # bs = ('1011101.11', '111.1', '100001.101')
   # for b in bs:
   #   print("%s->%g" % (b, n2d(b, 2)))
@@ -178,5 +217,5 @@ if __name__ == "__main__":
   # print(i2b(132, 16))
   # print(f2b(.4, 16))
   
-  mtable(16)
+  # mtable(16)
   # atable(16)

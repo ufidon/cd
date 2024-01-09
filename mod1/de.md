@@ -151,3 +151,29 @@ Localization
 | 5   | ON  | off | ON  | 225° to 270° |
 | 6   | ON  | ON  | off | 270° to 315° |
 | 7   | ON  | ON  | ON  | 315° to 360° |
+
+
+A ⊕ (xor) method generating Gray code
+---
+- $a ⊕ b = 1$ if a is different from b else 0
+- conversion between binary code $b_nb_{n-1}⋯b_2b_1b_0$ and Gray code $g_ng_{n-1}⋯g_2g_1g_0$
+- calculate from right (least significant bit) to left (most significant bit)
+  - $b_k=g_k⊕g_{k+1}⊕⋯⊕g_n$ and $g_k=b_k⊕b_{k+1}$, k=0 to n-1
+  - $b_n=g_n$
+
+| $b_nb_{n-1}⋯b_2b_1b_0$ | $g_ng_{n-1}⋯g_2g_1g_0$ |
+|:---:|:---:|
+| $b_0=g_0⊕g_1⊕⋯⊕g_n$ | $g_0=b_0⊕b_1$ |
+| $b_1=g_1⊕g_2⊕⋯⊕g_n$ | $g_1=b_1⊕b_2$ |
+| $b_2=g_2⊕g_3⊕⋯⊕g_n$ | $g_2=b_2⊕b_3$ |
+| $b_{n-1}=g_{n-1}⊕g_n$ | $g_{n-1}=b_{n-1}⊕b_n$ |
+| $b_n=g_n$ | $g_n=b_n$ |
+
+- we can also calculate from left to right to get a list of left-right flipped Gray code
+  - $b_k=g_k⊕g_{k-1}⊕⋯⊕g_0$ and $g_k=b_k⊕b_{k-1}$, k=n to 1
+  - $b_0=g_0$
+
+
+💡 Demo
+---
+- do a pair of conversion between binary code and Gray code in the table of Gray code above
