@@ -9,6 +9,12 @@ __Number System__
   - so it is called a _positional numeral system_
 
 
+💡 Demo
+---
+- Expand $520.1314$
+  - $520.1314 = 5×10^2 + 2×10^1 + 0×10^0+1×10^{-1} + 3×10^{-2}+1×10^{-3}+4×10^{-4}$
+
+
 📝 Practice
 ---
 - Expand the following numbers
@@ -57,6 +63,19 @@ A general number in the numeral system with base $b$
 ---
 - ${\displaystyle (a_{n}a_{n-1}\cdots a_{1}a_{0}.c_{1}c_{2}c_{3}\cdots c_m)_{b}=\sum _{k=0}^{n}a_{k}b^{k}+\sum _{k=1}^{m }c_{k}b^{-k}}$
 - this gives us a way to convert $(N)_b$ into decimal number
+  - if we represent $a_k,c_k,b$ on the RHS in decimal numbers
+  - or into a numeral system with base $B$ by representing $a_k,c_k,b$ on the RHS in this numeral system
+
+
+💡 Demo
+---
+- binary to decimal: 
+  - $(1101.11)_2 = 1×2^3 + 1×2^2 + 0×2^1 + 1×2^0 + 1×2^{-1} + 1×2^{-2}$
+- octal to decimal:
+  - $(520.1314)_8 = 5×8^2 + 2×8^1 + 0×8^0+1×8^{-1} + 3×8^{-2}+1×8^{-3}+4×8^{-4}$
+- hex to decimal:
+  - $(be.ef)_{16}=11×16^1 + 14×16^0 + 14×16^{-1}+15×16^{-2}$
+
 
 
 📝 Practice
@@ -92,14 +111,57 @@ Convert decimal to the system with base b
 - $\displaystyle c_s =⌊ b^sF - ∑_{k=1}^{s-1}c_kb^{s-k}⌋$
 
 
+Integer division
+---
+Given integer $a, b>0$, there exist integer $q,r$ such that
+$$a=b×q+r$$
+Divide $a$ by $b$, we get the *quotient* $q$ and the *remainder* r $(0≤r<b)$.
+
+🍎 Example
+---
+| | |
+|:---:|:---:|
+| $8=2×4+0$ | $7=2×3+1$ |
+| $35=8×4+3$ | $71=8×8+7$ |
+| $31=16×1+15$ | $11 = 0×16+11$ |
+
+
 💡 Demo
 ---
 - `8.25` to binary
-  - ans: `1000.01`
+  - Integer part:
+    - $8=2×4+\mathbf{0}$
+    - $4=2×2+\mathbf{0}$
+    - $2=2×1+\mathbf{0}$
+    - $1=2×\underline{0}+\mathbf{1}$
+    - collect the remainders from last to first: $(1000)_2$
+  - Fraction part:
+    - $.25×2 = \mathbf{0}.5$
+    - $.5×2  = \mathbf{1}.\underline{0}$
+    - collect the integers from first to last: $(.01)_2$
+  - ans: $(1000)_2 + (.01)_2 = (1000.01)_2$
 - `70.5` to octal
-  - ans: `106.4`
-- `132.4` to hex
-  - ans: $84.\dot{6}$
+  - Integer part:
+    - $70 = 8×8+\mathbf{6}$
+    - $8  = 8×1+\mathbf{0}$
+    - $1  = 8×\underline{0}+\mathbf{1}$
+    - collect the remainders from last to first: $(106)_8$
+  - Fraction part:
+    - $.5×8=\mathbf{4}.\underline{0}$
+    - collect the integers from first to last: $(.4)_8$
+    - ans: $(106)_8+(.4)_8=(106.4)_8$
+- `132.7` to hex
+  - Integer part:
+    - $132=16×8+\mathbf{4}$
+    - $8  =16×\underline{0}+\mathbf{8}$
+    - collect the remainders from last to first: $(84)_{16}$
+  - Fraction part:
+    - $0.7×16=\mathbf{11}.2$
+    - $.2×16=\mathbf{3}.2$
+    - $.2×16=\mathbf{3}.2$
+    - $⋯$
+    - collect the integers from first to last: $(.B3333⋯)_{16}$
+  - ans: $(84)_{16}+(.B3333⋯)_{16}=(84.B3333⋯)_{16}=(84.B\dot{3})_{16}$
 
 
 📝 Practice
@@ -123,10 +185,10 @@ Convert between binary, octal and hex
 
 💡 Demo
 ---
-- $(101 011. 111 100)_2 = (53.74)_8$
-- $(73.12)_8=(111 011. 001 010)_2$
-- $(1100 0110 1011. 1111 0000 0110)_{2}=(C6B.F06)_{16}$
-- $(A6.C)_{16}=(1010 0110. 1100)_2=(1010 0110. 11)_2$
+- $(11\_011. 111\_1)_2  = (\mathbf{0}11\_011. 111\_1\mathbf{00})_2 = (33.74)_8$
+- $(73.12)_8=(111\_ 011. 001\_ 01\mathbf{0})_2=(111\_ 011. 001\_ 01)_2$
+- $(1\_ 0110\_ 1011. 1111\_ 0000\_ 11)_{2}=(\mathbf{000}1\_ 0110\_ 1011. 1111\_ 0000\_ 11\mathbf{00})_{2}=(16B.F0C)_{16}$
+- $(A6.C)_{16}=(1010\_ 0110.11\mathbf{00})_2=(1010\_ 0110. 11)_2$
 
 
 📝 Practice

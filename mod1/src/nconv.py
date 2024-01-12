@@ -13,29 +13,34 @@ def n2d(n: str, b: int) -> float:
   return s
 
 
-def i2b(i: int, b: int) -> str:
+def i2b(i: int, b: int, prt=False) -> str:
   s = ''
   while (i//b):
     if b == 16:
       s = hex(i % b)[2:] + s
     else:
       s = str(i % b) + s
-    i = i//b
+    ip = i
+    i,r = i//b, i%b
+    print(f'{ip}={b}×{i}+{r}' if prt==True else '')
 
   if i != 0:
     if b == 16:
       s = hex(i % b)[2:] + s
     else:
       s = str(i % b) + s
+    print(f'{i}={b}×0' if prt==True else '')
 
   return s
 
 
-def f2b(f: float, b: int, p: int = 20) -> str:
+def f2b(f: float, b: int, p: int = 20, prt=False) -> str:
   s = ''
   while p > 0 and f > 0:
+    pf = f
     f *= b
     d = math.floor(f)
+    print(f'{pf}×{b}={f}' if prt==True else '')
     if b == 16:
       s += hex(d)[2:]
     else:
@@ -159,14 +164,14 @@ def g2b(n:int, w:int=4)->str:
   
 
 if __name__ == "__main__":
-  ng = []
-  for n in range(16):
-    g = b2g(n)
-    m = int(g,2)
-    ng.append(m)
-    b = g2b(m)
-    nb = int(b,2)
-    print(f'{nb:02d} {b} {g} {m:02d}')
+  # ng = []
+  # for n in range(16):
+  #   g = b2g(n)
+  #   m = int(g,2)
+  #   ng.append(m)
+  #   b = g2b(m)
+  #   nb = int(b,2)
+  #   print(f'{nb:02d} {b} {g} {m:02d}')
   
   # print(g2b(12))
   
@@ -182,7 +187,8 @@ if __name__ == "__main__":
   # for h in hs:
   #   print("%s->%.22g" % (h, n2d(h, 16)))
 
-  # print(i2b(153,8))
+  # print(i2b(153,8, True))
+  # print(i2b(512,8, True))
   # print(i2b(41,2))
   # print(i2b(57005, 16))
   # print(i2b(93, 2))
@@ -195,10 +201,12 @@ if __name__ == "__main__":
   # print(i2b(23147, 16))
   
 
-  # print(f2b(0.6875, 2))
-  # print(f2b(0.513, 8))
+  # print(f2b(0.6875, 2, 20, True))
+  # print(f2b(0.513, 8, 20, True))
   # print(f2b(.7458343505859375, 16))
-  # print(f2b(.1, 2))
+  # print(f2b(.1, 2, 20, True))
+  print(i2b(132, 16, True))
+  print(f2b(.7, 16, 20, True))
 
   # print(f2b(.75, 2))
   # print(f2b(.5, 2))
