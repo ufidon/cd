@@ -106,9 +106,9 @@ dead.beef->57005.7458343505859375
 
 Convert decimal to the system with base b
 ---
-- Given $\displaystyle D.F = \sum _{k=0}^{n}a_{k}b^{k}+\sum _{k=1}^{m }c_{k}b^{-k} =(a_{n}a_{n-1}\cdots a_{1}a_{0}.c_{1}c_{2}c_{3}\cdots c_m)_{b}$, find $a_k$ and $c_k$
-- $\displaystyle a_k = ⌊\frac{D}{b^k}⌋\mod b$
-- $\displaystyle c_s =⌊ b^sF - ∑_{k=1}^{s-1}c_kb^{s-k}⌋$
+- Given $\displaystyle I.F = \sum _{k=0}^{n}a_{k}b^{k}+\sum _{k=1}^{m }c_{k}b^{-k} =(a_{n}a_{n-1}\cdots a_{1}a_{0}.c_{1}c_{2}c_{3}\cdots c_m)_{b}$, find $a_k$ and $c_k$
+- $\displaystyle a_k = ⌊\frac{I}{b^k}⌋\mod b$
+- $\displaystyle c_s =⌊ b^s×.F - ∑_{k=1}^{s-1}c_kb^{s-k}⌋$
 
 
 Integer division
@@ -285,19 +285,31 @@ Arithmetic operations
 ---
 - binary arithmetic
   - 11011 + 10101
+    - ans: 110000
   - 10001 - 111
+    - ans: 1010
   - 101 × 11
+    - ans: 1111
   - ⚠️ 1101 ÷ 10
+    - ans: 110.1
 - octal arithmetic
   - 311 + 737
+    - ans: 1250
   - 715 - 476
+    - ans: 217
   - 17 × 121
+    - ans: 2277
   - ⚠️ 756 ÷ 21
+    - ans: $35.\dot{0}360741\dot{7}$
 - hex arithmetic
   - 1fa + eff
+    - ans: 10f9
   - f12 - aee
+    - ans: 424
   - fa × aeb
+    - ans: aa97e
   - ⚠️ beef ÷ ae
+    - ans: 118.e9ee58469ee
 
 
 

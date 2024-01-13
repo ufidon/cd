@@ -22,14 +22,14 @@ def i2b(i: int, b: int, prt=False) -> str:
       s = str(i % b) + s
     ip = i
     i,r = i//b, i%b
-    print(f'{ip}={b}×{i}+{r}' if prt==True else '')
+    print(f'{ip}={b}×{i}+{r}') if prt==True else None
 
   if i != 0:
     if b == 16:
       s = hex(i % b)[2:] + s
     else:
       s = str(i % b) + s
-    print(f'{i}={b}×0' if prt==True else '')
+    print(f'{i}={b}×0') if prt==True else None
 
   return s
 
@@ -40,7 +40,7 @@ def f2b(f: float, b: int, p: int = 20, prt=False) -> str:
     pf = f
     f *= b
     d = math.floor(f)
-    print(f'{pf}×{b}={f}' if prt==True else '')
+    print(f'{pf}×{b}={f}') if prt==True else None
     if b == 16:
       s += hex(d)[2:]
     else:
@@ -205,8 +205,15 @@ if __name__ == "__main__":
   # print(f2b(0.513, 8, 20, True))
   # print(f2b(.7458343505859375, 16))
   # print(f2b(.1, 2, 20, True))
-  print(i2b(132, 16, True))
-  print(f2b(.7, 16, 20, True))
+  # print(i2b(132, 16, True))
+  # print(f2b(.7, 16, 20, True))
+  # print(i2b(494//17,8))
+  # print(f2b(494/17-494//17,8))
+  # print(n2d('35.0360741703607417',8))
+ 
+  print(i2b(48879//174,16))
+  print(f2b(48879/174-48879//174,16))
+  print(n2d('118.e9ee58469ee',16))  
 
   # print(f2b(.75, 2))
   # print(f2b(.5, 2))
