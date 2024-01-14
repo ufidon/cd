@@ -161,7 +161,12 @@ def g2b(n:int, w:int=4)->str:
   
   b += t
   return b  
-  
+
+def bcd(n:str)->str:
+  s = ''
+  for d in n:
+    s += f'{int(d):04b} ' if d.isdigit() else d
+  return s
 
 if __name__ == "__main__":
   # ng = []
@@ -211,9 +216,9 @@ if __name__ == "__main__":
   # print(f2b(494/17-494//17,8))
   # print(n2d('35.0360741703607417',8))
  
-  print(i2b(48879//174,16))
-  print(f2b(48879/174-48879//174,16))
-  print(n2d('118.e9ee58469ee',16))  
+  # print(i2b(48879//174,16))
+  # print(f2b(48879/174-48879//174,16))
+  # print(n2d('118.e9ee58469ee',16))  
 
   # print(f2b(.75, 2))
   # print(f2b(.5, 2))
@@ -234,3 +239,20 @@ if __name__ == "__main__":
   
   # mtable(16)
   # atable(16)
+  
+  # print(bcd('663'))
+  # print(f2b(.14,2,500))
+  # print(n2d('0.00100011110101110000101000111101011100001010001111011',2))
+  # 0.000000101111100000110111101101001010001000110011100111
+  
+  t = ['5201314', '314.125', '2023.0116']
+  for x in t:
+    print(f'{bcd(x)}')
+  
+  n = [5201314, 314, 2023]
+  for k in n:
+    print(f'{i2b(k, 2)}')
+    
+  f = [.125, .0116]
+  for x in f:
+    print(f'{f2b(x,2,500)}')

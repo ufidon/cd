@@ -23,11 +23,22 @@ __Data Encoding__
 |8|1|0|0|0|
 |9|1|0|0|1|
 
-📝 Practice
+
+💡 Demo
 ---
-- $(663)_{10} = (0110 0110 0011)_{BCD}= (1010010111)_2$
+- $(663)_{10} = (0110 0110 0011)_{BCD} = (1010010111)_2$
   - in the BCD notation, it takes 12 bits
   - but in binary representation, it only takes 10 bits
+- $(3.14)_{10} = (0011.0001 0100)_{BCD} = (11.00\dot{1}000111101011100001\dot{0})_2$
+
+
+📝 Practice
+---
+- convert the following decimal numbers into BCD and binary
+  - `5201314, 314.125`
+- ans:
+  - $(5201314)_{10}=(0101 0010 0000 0001 0011 0001 0100)_{BCD}=(10011110101110110100010)_2$
+  - $(314.125)_{10}=(0011 0001 0100 .0001 0010 0101)_{BCD}=(100111010.001)_2$
 
 
 Alphanumeric codes
@@ -49,6 +60,21 @@ Alphanumeric codes
 - ASCII is a 7-bit code, but usually saved in an 8-bit byte with the most significant bit as 0
   - 8-bit extension of ASCII can represent 128 more characters
   - called [extended ASCII](https://en.wikipedia.org/wiki/Extended_ASCII)
+
+
+💡 Demo
+---
+- Decode ASCII codes below:
+  - `1101001`
+  - ans: $(1101001)_2 = (69)_{16}$ is letter `i`
+
+
+📝 Practice
+---
+- Decode ASCII codes below:
+  - `110001, 1101100, 1101110`
+  - ans in `hex:char`
+    - `31:1, 6c:l, 6e:n`
 
 
 Localization
