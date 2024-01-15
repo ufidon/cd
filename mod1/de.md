@@ -29,7 +29,7 @@ __Data Encoding__
 - $(663)_{10} = (0110 0110 0011)_{BCD} = (1010010111)_2$
   - in the BCD notation, it takes 12 bits
   - but in binary representation, it only takes 10 bits
-- $(3.14)_{10} = (0011.0001 0100)_{BCD} = (11.00\dot{1}000111101011100001\dot{0})_2$
+- $(3.14)_{10} = (0011.0001 0100)_{BCD} = (11.0\dot{0}100011110101110000\dot{1})_2$
 
 
 📝 Practice

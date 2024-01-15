@@ -55,6 +55,39 @@ def f2b(f: float, b: int, p: int = 20, prt=False) -> str:
 
   return s
 
+
+def f2bn(f: float, b: int, p: int = 20, prt=False, stop=False) -> str:
+  fs=[]
+  s = ''
+  while p > 0 and f > 0:
+    pf = f
+    f *= b
+    d = math.floor(f)
+    print(f'{pf}×{b}={f}') if prt==True else None
+    if b == 16:
+      s += hex(d)[2:]
+    else:
+      s += str(d)
+
+    if d > 0:
+      # f -= d
+      f = float(f'{f:g}'[1:])
+    
+    a = f'{f:g}'  
+    if a[2:] not in fs:
+      fs.append(a[2:])
+    else:
+      print(f'repeated {fs.index(a[2:])+1}-->{len(s)-1}!')
+      if stop==True:
+        break;
+
+    p -= 1
+
+  s = '0.' + s
+
+  return s
+
+
 def atable(b:int = 10):
   print("|", end='')
   for i in range(b):
