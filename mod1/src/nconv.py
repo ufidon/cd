@@ -77,7 +77,7 @@ def f2bn(f: float, b: int, p: int = 20, prt=False, stop=False) -> str:
     if a[2:] not in fs:
       fs.append(a[2:])
     else:
-      print(f'repeated {fs.index(a[2:])+1}-->{len(s)-1}!')
+      print(f'repeated {fs.index(a[2:])+1}-->{len(s)}!')
       if stop==True:
         break;
 
