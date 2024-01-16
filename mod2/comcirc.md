@@ -32,10 +32,10 @@ Truth table of basic operations
 ---
 | A | B | A+B | AB| $\overline{A }$ |
 |:---:|:---:|:---:|:---:|:---:|
-| 0 | 0 | 0 | 0 | 1 |
+| 0 | 0 | `0` | 0 | 1 |
 | 0 | 1 | 1 | 0 | 1 |
 | 1 | 0 | 1 | 0 | 0 |
-| 1 | 1 | `1` | 1 | 0 |
+| 1 | 1 | 1 | `1` | 0 |
 
 Laws of Boolean algebra 
 ---
@@ -49,6 +49,15 @@ Laws of Boolean algebra
 | absorption <br> redundance | $A+AB=A$ <br> $A(A+B)=A$ <br> $A+\overline{A}B=A+B$ <br> $A(\overline{A}+B)=AB$ |
 | expansion | $A=AB+A\overline{B}$ <br> $A=(A+B)(A+\overline{B})$ |
 | **De Morgan** | $\overline{A_1+A_2+⋯+A_n}=\overline{A_1}⋅\overline{A_2}⋯\overline{A_n}$ <br> $\overline{A_1A_2⋯A_n}=\overline{A_1}+\overline{A_2}+⋯+\overline{A_n}$ |
+
+
+How to draw a truth table
+---
+- $Y=f(X_1, X_2, ⋯, X_n)$
+- $2^n$ + 1 rows
+  - a header row with $n+1$ columns: $X_1, X_2, ⋯, X_n, Y$
+  - $2^n$ rows for all possible instantiations of $X_1, X_2, ⋯, X_n$
+    - $00⋯00, 00⋯01, 00⋯10, 00⋯11, ⋯ 11⋯11$
 
 
 💡 Prove Boolean equations with truth table
@@ -91,6 +100,7 @@ The *dual* of an algebraic expression
   - Algebraic manipulation
   - Truth table
 - Find the duel equation of the consensus theorem
+  - ans: $(X+Y)(\overline{X}+Z)(Y+Z)=(X+Y)(\overline{X}+Z)$
   - prove it holds
 - Prove $(A+B)(\overline{A}+C) = AC+\overline{A}B$
 
@@ -295,7 +305,7 @@ end structural;
 
 Number of descriptions of a logic circuit of each method
 ---
-- There is only one way for truth table
+- There is only one way for truth table, however
 - There are many ways for the other three methods
   - the simplest form is desired
 
@@ -305,11 +315,17 @@ Boolean function standard forms
 - facilitate the simplification procedures
 - facilitate implementing logic circuits
 - contain two types of terms
-  - *product terms* such as $AB\overline{C}$
-  - *sum terms* such as $A+B+\overline{C}$
+  - *product terms* such as $A, AC, AB\overline{C}$, etc.
+    - there are $3^n-1$ product terms for $n$ variables
+  - *sum terms* such as $A, A+C, A+B+\overline{C}$, etc.
+    - there are $3^n-1$ sum terms for $n$ variables
 - two types of standard forms
   - *sum of products* such as $F=AB + \overline{B} + \overline{A}B\overline{C}$
   - *product of sums* such as $F=A(\overline{B}+C)(A+B+\overline{C})$
+
+💡 Demo
+---
+- list all the product and sum terms for 2,3,4 variables
 
 
 minterms and maxterms of a function $F$
@@ -330,13 +346,16 @@ minterms and maxterms of a function $F$
 ---
 - Find all the minterms and maxterms for
   - one variable $A$
+    - $m_0=\overline{A}, M_0=\overline{m_0}=A$
   - two variables $A,B$
+    - $m_0=\overline{A}⋅\overline{B}, M_0=\overline{m_0}=A+B$
+    - $m_1=\overline{A}B, M_1=\overline{m_1}=A+\overline{B}$
 - Derive the truth table for each term
 
 
 📝 Practice
 ---
-- Find all the minterms and maxterms for three variables
+- Find all the minterms and maxterms for three and four variables
 - Derive the truth table for each term
 
 
