@@ -350,7 +350,13 @@ minterms and maxterms of a function $F$
   - two variables $A,B$
     - $m_0=\overline{A}⋅\overline{B}, M_0=\overline{m_0}=A+B$
     - $m_1=\overline{A}B, M_1=\overline{m_1}=A+\overline{B}$
+    - $m_2=A\overline{B}, M_2=\overline{m_2}=\overline{A}+B$
+    - $m_3=AB, M_2=\overline{m_2}=\overline{A}+\overline{B}$
 - Derive the truth table for each term
+  - $m_i=1$ only if $B(m_i)=i$
+    - $B(m_i)$ is the binary number by replacing X with 1 and $\overline{X}$ with 0
+  - $M_i=0$ only if $B(M_i)=i$
+    - $B(M_i)$ is the binary number by replacing X with 0 and $\overline{X}$ with 1
 
 
 📝 Practice
@@ -364,7 +370,7 @@ minterms and maxterms of a function $F$
 - An example
   - $F=X\overline{Y}+XY=m_2+m_3=Σm(2,3)$
 - the minterms of $\overline{F}$ are those minterms NOT in $F$, i.e.
-  - $\overline{F}=Σm(0,1)$
+  - $\overline{F}=Σm(0,1)=\overline{X}⋅\overline{Y}+\overline{X}Y$
 - take the complement of $\overline{F}$ to get $F$
   - $F=\overline{\overline{F}}=\overline{Σm(0,1)}=\overline{m_0+m_1}=\overline{m_0}⋅\overline{m_1}=M_0M_1=(X+Y)(X+\overline{Y})=ΠM(0,1)$
   - we get the *product of maxterms* of $F$
@@ -391,10 +397,18 @@ minterms and maxterms of a function $F$
 
 📝 Practice
 ---
-- Convert $F=XY+ \overline{Y}+\overline{X}Y\overline{Z}$ into som and PoM using two ways: 
+- Convert 
+  - $F_1=XY+ \overline{Y}+\overline{X}Y\overline{Z}$ 
+  - $F_2=\overline{Y}+\overline{X}⋅\overline{Y}$
+  - $F_3=(XY+Z)(Y+XZ)$
+  - $F_4=AB+C(D+E)$
+  - $F_5=X(\overline{Y}+Z)(X+Y+\overline{Z})$
+
+into som and PoM using two ways: 
+
   - ➊ truth table and 
   - ➋ algebraic manipulation
-  - ans: $F=∑m(0,1,2,4,5)=ΠM(3,6,7)$
+  - ans: $F_1=∑m(0,1,2,4,5)=ΠM(3,6,7)$
 
 
 Properties of the standard forms
@@ -418,6 +432,9 @@ Optimize two-level circuits
     - a visual method
     - suitable for Boolean functions of up to four variables
 
+
+K-map
+---
 
 
 
