@@ -169,7 +169,7 @@ Gate extension and combination
 
 💡 Demo
 ---
-- Draw the circuits for ❶❷❸
+- Draw the circuits for ❶❷❸ with [draw io](https://app.diagrams.net/)
 
 
 Describe gates in HDL
@@ -320,8 +320,8 @@ Boolean function standard forms
   - *sum terms* such as $A, A+C, A+B+\overline{C}$, etc.
     - there are $3^n-1$ sum terms for $n$ variables
 - two types of standard forms
-  - *sum of products* such as $F=AB + \overline{B} + \overline{A}B\overline{C}$
-  - *product of sums* such as $F=A(\overline{B}+C)(A+B+\overline{C})$
+  - *sum of products (sop)* such as $F=AB + \overline{B} + \overline{A}B\overline{C}$
+  - *product of sums (PoS)* such as $F=A(\overline{B}+C)(A+B+\overline{C})$
 
 💡 Demo
 ---
@@ -423,7 +423,7 @@ Properties of the standard forms
 
 Optimize two-level circuits
 ---
-- som and PoM circuits can be implemented in two-level circuits
+- sop and PoS circuits can be implemented in two-level circuits
   - can be optimized by minimizing the gates used
 - two popular ways for simplifying a Boolean function
   - algebraic manipulation
@@ -433,9 +433,84 @@ Optimize two-level circuits
     - suitable for Boolean functions of up to four variables
 
 
-K-map
+K-map of $Y=F(X_1,X_2, ⋯, X_n)$
 ---
+- a diagram made up of $2^n$ squares, $n≤4$
+   - the squares are labeled with Gray code of $(X_1,X_2, ⋯, X_n)$
+- each square representing one row of the truth table 
+   - one minterm of a single output function
+- *adjacent terms* differ exactly one literal which appears uncomplemented in one and complemented in the other,e.g.
+  - $AB, A\overline{B}$ so $AB + A\overline{B} = A(B+\overline{B})=A$
+  - $\overline{A}BC, \overline{A}\overline{B}C$ so $\overline{A}BC+ \overline{A}\overline{B}C=\overline{A}C$
 
+
+💡 Demo
+---
+- [Draw K-maps of 2,3,4 variables](https://www.boolean-algebra.com/kmap)
+
+
+Map manipulation
+---
+- All rectangles on a map made up of $2^n$ squares containing 1s correspond to *implicants*
+- *Prime implicant* is an implicant that is as large as possible
+- *Essential prime implicant* is a prime implicant that contains at least one term not covered by another prime implicant
+- *Selection rule*: minimize the overlap among prime implicants as much as
+possible
+
+
+💡 Demo
+---
+- Simplify the following som's with K-map
+  - $F_1(A,B)=Σm(1,2)$
+    - $F_1=\overline{A}B+A\overline{B}$
+  - $F_2(A,B,C)=Σm(0,1,2,3,4,5)$
+    - $F_2=\overline{A}+\overline{B}$
+  - $F_3(A,B,C)=Σm(0,2,4,5,6)$
+    - $F_3=A\overline{B}+\overline{C}$
+  - $F_4(A,B,C)=Σm(1,3,4,5,6)$
+    - $F_4=\overline{A}C+A\overline{B}+A\overline{C}$
+  - $F_5(A,B,C,D)=Σm(0,1,2,4,5,6,8,9,10,12,13)$
+    - $F_5=\overline{C}+\overline{AD}+\overline{BD}$
+  - $F_6(A,B,C,D)=\overline{ACD}+\overline{A}D+\overline{B}C+CD+A\overline{BD}$
+    - $F_6=Σm(0,1,2,3,4,5,7,8,10,11,15)=\overline{BD}+\overline{AC}+CD$
+  - $F_7(A,B,C,D)=Σm(1,3,4,5,6,7,12,14)$
+    - $F_7=\overline{A}D+B\overline{D}$
+  - $F_8(A,B,C,D)=Σm(0,5,10,11,12,13,15)$
+    - $F_8=\overline{ABCD}+B\overline{C}D+AB\overline{C}+A\overline{B}C+ACD$, or
+    - $=\overline{ABCD}+B\overline{C}D+AB\overline{C}+A\overline{B}C+ABD$
+  - $F_9(A,B,C,D)=Σm(0,1,2,4,5,10,11,13,15)$
+    - $F_9=\overline{AC}+ABD+A\overline{B}C+\overline{ABD}$
+
+
+💡 Demo
+---
+- Simplify $F$ to PoM forms
+  - $F(A,B,C,D)=Σm(0,1,2,5,8,9,10)$
+    - ❶ Find $\overline{F}=Σm(3,4,6,7,11,12,13,14,15)$
+      - i.e. the squares filled with 0's
+    - ❷ Simplify $\overline{F}$ to sop: $\overline{F}=AB+CD+B\overline{D}$
+    - ❸ $F=\overline{\overline{F}}=(\overline{A}+\overline{B})(\overline{C}+\overline{D})(\overline{B}+D)$
+
+
+Incompletely specified functions
+---
+- whose outputs are not completely specified
+  - ❶ not used for some input combinations, i.e. minterms
+    - such as in BCD, 6 combinations are not used
+  - ❷ we don't care the outputs for some input combinations
+  - both conditions are called *don't care conditions*
+    - these minterms are marked with an `x` on K-map
+      - i.e. can be used as 1 in som or 0 in PoM as will
+
+
+💡 Demo
+---
+- Use don't care conditions to simplify
+  - $F(A,B,C,D)=Σm(1,3,7,11,15)$
+  - Don't care conditions: $d(A,B,C,D)=Σm(0,2,5)$
+  - ans:
+    - sop: $F=CD+\overline{A}D$
+    - PoS: $F=D(C+\overline{A})$
 
 
 # References
