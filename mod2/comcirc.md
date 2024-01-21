@@ -60,13 +60,13 @@ How to draw a truth table
     - $00⋯00, 00⋯01, 00⋯10, 00⋯11, ⋯ 11⋯11$
 
 
-💡 Prove Boolean equations with truth table
+💡 [Prove Boolean equations with truth table](https://www.emathhelp.net/en/calculators/discrete-mathematics/truth-table-calculator/)
 ---
 - basic law
 - De Morgan's law
 
 
-💡 Prove Boolean equations with other equations
+💡 [Prove Boolean equations with other equations](https://www.emathhelp.net/en/calculators/discrete-mathematics/boolean-algebra-calculator/)
 ---
 - identity law
 - absorption law
