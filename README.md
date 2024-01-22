@@ -10,10 +10,20 @@
 
 # Online resources
 - [Digital](https://github.com/hneemann/Digital)
-- [Logic gate simulator](https://sciencedemos.org.uk/logic_gates.php)
 - [circuitverse](https://circuitverse.org/)
 - [Logical Simulator](https://www.logical-simulator.com/)
 - [simulator IO](https://simulator.io/)
+- [Logic Circuit](https://www.logiccircuit.org/)
+- ---
+- [circuit lab](https://www.circuitlab.com/)
+- [Scheme-it](https://www.digikey.com/en/schemeit)
+- [Logisim](http://www.cburch.com/logisim/index.html)
+- [Digital Circuit Design](https://www.digitalcircuitdesign.com/)
+- [Circuit Diagram](https://www.circuit-diagram.org/)
+- [TinkerCAD](https://www.tinkercad.com/)
+- [logic.ly](https://logic.ly/)
+- [KiCad](https://www.kicad.org/)
+
 
 # HDL
 - [opencores](https://opencores.org/howto/eda)
