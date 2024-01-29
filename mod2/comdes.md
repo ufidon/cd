@@ -34,6 +34,7 @@ o-->m-->v-->s
 - ❷ formulate specification in Boolean equation or truth table
 - ❸ optimize formulation
 - ❹ map optimization to implementation technology
+  - typically one of the two universal gates: NAND or NOR
 - ❺ verify that the implementation fullfil the specification
 
 
@@ -62,6 +63,10 @@ Top-down design
 |:---:|:---:|:---:|
 | AND | NAND->NOT | NOTS->NOR |
 | OR | NOTS->NAND | NOR->NOT |
+| NOT | NAND | NOR |
+
+- NOT gate is usually called inverter
+  - can be implemented by a NAND or NOR by tying their inputs together as a single input
 - NOT->NOT cancels
 
 
@@ -77,8 +82,9 @@ Building blocks
 
 🍎 Example
 ---
-implementation the following functions with NAND gates+inverters, then NOR gates+inverters
+Implementation the following functions with NAND gates+inverters, then NOR gates+inverters
 - $F = AB + \overline{(AB)}C + \overline{(AB})\overline{D} + E$
+- demonstrate in [draw.io](https://app.diagrams.net/)
 
 
 Rudimentary Logic Functions
@@ -141,8 +147,9 @@ Multiple-bit functions
 Decoding
 ---
 - An n-bit binary code is capable of representing up to $2^n$ distinct elements of coded information
-- Decoding is the conversion of an n-bit input code to an m-bit output code with $n ≤ m ≤ 2n$, done by a n–to–m-line decoder
+- Decoding is the conversion of an n-bit input code $m_i$ to an m-bit output code with $n ≤ m ≤ 2^n$, done by a n–to–m-line decoder
   - generates no more than $2^n$ minterms from the n input variables
+  - so only one output value $D_i$ is set to be 1 for each input value $m_i$
 - 1-to-2 decoder: 
    - $D[1:0]=[A,\overline{A}]$
    - $D_i=m_i$
@@ -152,6 +159,29 @@ Decoding
   - can be constructed in 2 1-to-2 decoder+ 4 AND gates
 - 3-to-8 decoder:
   - can be constructed in 1 2-to-4 decoder + 1 1-to-2 decoder + 8 AND gates
+- generally, for a n-to-$2^n$ decoder:
+  - ❶ let k=n
+  - ❷ if k is even, use $2^k$ AND gates driven by two $\frac{k}{2}$-to-$2^{\frac{k}{2}}$ decoders
+  - if n is odd, use $2^k$ AND gates driven by a $\frac{k + 1}{2}$-to-$2^{\frac{k + 1}{2}}$ decoder and a $\frac{k - 1}{2}$-to-$2^{\frac{k - 1}{2}}$ decoder 
+  - k = k/2
+  - ❸ For each decoder resulting from step ❷, repeat step ❷ with k equal to the values obtained in step ❷ until k = 1. For k = 1, use a 1–to–2 decoder
+
+💡 Demo
+---
+- Find the Boolean functions, truth tables, implementation and schematic symbols for
+  - 1-to-2 line decoder
+  - 2-to-4 line decoder
+  - 3-to-8 line decoder
+
+
+
+💡 Demo
+---
+- Design a 6-to-64 decoder
+- first run of step ❷:
+  - k=6: $2^6=64$ AND gates driven by two 3-to-8 decoders. k=k/2=3
+- second run of step ❷:
+  - k=3: $2^3=8$ AND gates driven by a 2-to-4 decoder and  a 1-to-2 decoder
 
 
 📝 Practice
@@ -159,7 +189,7 @@ Decoding
 - Design the following decoders
   - 4-to-16 decoder
   - 5-to-32 decoder
-  - 6-to-64 decoder
+
 
 
 

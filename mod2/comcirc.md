@@ -150,7 +150,7 @@ Logic gates
 ---
 - A computer consists of many ICs (integrated chips)
 - An IC consists of many logic gates
-- Basic logic gates
+- Basic logic gates (ch2.p4)
 
 ![gates](./img/gates.png)
 
@@ -158,7 +158,7 @@ Logic gates
 Gate extension and combination
 ---
 - gate AND, OR, NAND, NOR can be extended to have more than two inputs
-- each basic gate can be implemented with several other basic gates
+- each basic gate can be implemented with several other basic gates (ch2.p5)
   - ❶An AND gate can be implemented with a NAND gated output to a NOT gate
     - $Y=\overline{\overline{AB}}$
   - ❷An OR gate can be implemented with two NOT gates output to a NAND gate
@@ -295,12 +295,12 @@ end structural;
 
 📝 Practice
 ---
-- Describe Boolean function $D = R\overline{T} + A$ in 
-  - truth table
-  - circuit diagram
+- Describe Boolean function $L = D\overline{X} + A$ in 
+  - truth table (ch2.p9)
+  - circuit diagram (ch2.p10)
   - HDL description
-    - Verilog HDL
-    - VHDL
+    - Verilog HDL (ch2.p11)
+    - VHDL (ch2.p12)
 
 
 Number of descriptions of a logic circuit of each method
@@ -359,11 +359,14 @@ minterms and maxterms of a function $F$
     - $B(M_i)$ is the binary number by replacing X with 0 and $\overline{X}$ with 1
 
 
-📝 Practice
+📝 Practice 
 ---
-- Find all the minterms and maxterms for three and four variables
+- Find all the minterms and maxterms for 
+  - three variables
+  - four variables
 - Derive the truth table for each term
-
+  - three variables (ch2.p17, p18)
+  - four variables
 
 💡 Sum of minterms
 ---
@@ -442,7 +445,7 @@ K-map of $Y=F(X_1,X_2, ⋯, X_n)$
 - *adjacent terms* differ exactly one literal which appears uncomplemented in one and complemented in the other,e.g.
   - $AB, A\overline{B}$ so $AB + A\overline{B} = A(B+\overline{B})=A$
   - $\overline{A}BC, \overline{A}\overline{B}C$ so $\overline{A}BC+ \overline{A}\overline{B}C=\overline{A}C$
-
+- ch2.p23
 
 💡 Demo
 ---
@@ -461,18 +464,20 @@ possible
 💡 Demo
 ---
 - Simplify the following som's with K-map
-  - $F_1(A,B)=Σm(1,2)$
+  - $F_0(A,B)=Σm(0,1,3)$ ch2.p24, p25.a
+    - $F_0=\overline{A}+B$
+  - $F_1(A,B)=Σm(1,2)$ p25.b
     - $F_1=\overline{A}B+A\overline{B}$
-  - $F_2(A,B,C)=Σm(0,1,2,3,4,5)$
+  - $F_2(A,B,C)=Σm(0,1,2,3,4,5)$ p26.a
     - $F_2=\overline{A}+\overline{B}$
-  - $F_3(A,B,C)=Σm(0,2,4,5,6)$
+  - $F_3(A,B,C)=Σm(0,2,4,5,6)$ p26.b
     - $F_3=A\overline{B}+\overline{C}$
-  - $F_4(A,B,C)=Σm(1,3,4,5,6)$
+  - $F_4(A,B,C)=Σm(1,3,4,5,6)$ p26.c
     - $F_4=\overline{A}C+A\overline{B}+A\overline{C}$
-  - $F_5(A,B,C,D)=Σm(0,1,2,4,5,6,8,9,10,12,13)$
+  - $F_5(A,B,C,D)=Σm(0,1,2,4,5,6,8,9,10,12,13)$ p27
     - $F_5=\overline{C}+\overline{AD}+\overline{BD}$
-  - $F_6(A,B,C,D)=\overline{ACD}+\overline{A}D+\overline{B}C+CD+A\overline{BD}$
-    - $F_6=Σm(0,1,2,3,4,5,7,8,10,11,15)=\overline{BD}+\overline{AC}+CD$
+  - $F_6(A,B,C,D)=\overline{ACD}+\overline{A}D+\overline{B}C+CD+A\overline{BD}$ p28.a
+    - $F_6=Σm(0,1,2,3,4,5,7,8,10,11,15)=\overline{BD}+\overline{AC}+CD$ p28.b
   - $F_7(A,B,C,D)=Σm(1,3,4,5,6,7,12,14)$
     - $F_7=\overline{A}D+B\overline{D}$
   - $F_8(A,B,C,D)=Σm(0,5,10,11,12,13,15)$
