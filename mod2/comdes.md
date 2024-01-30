@@ -173,6 +173,10 @@ Decoding
 - 3-to-8 decoder: p17
   - can be constructed in 1 2-to-4 decoder + 1 1-to-2 decoder + 8 AND gates
 - generally, for a n-to-$2^n$ decoder:
+  - formulation:
+    - $D_i=m_A(i)$
+      - $m_A(i)$ is the $i^{th}$ minterm of $A[n-1:0]$
+  - implementation in 3 steps:
   - ❶ let k=n
   - ❷ if k is even, use $2^k$ AND gates driven by two $\frac{k}{2}$-to-$2^{\frac{k}{2}}$ decoders
   - if n is odd, use $2^k$ AND gates driven by a $\frac{k + 1}{2}$-to-$2^{\frac{k + 1}{2}}$ decoder and a $\frac{k - 1}{2}$-to-$2^{\frac{k - 1}{2}}$ decoder 
@@ -267,6 +271,104 @@ Let's design a 4-to-2 priority encoder
 - specification in truth table p27
 - optimization with K-map p28
 - implementation p29
+
+
+Selection of information
+---
+- a single selection output is made from a set of inputs, typically by
+  - multiplexer
+  - three-state driver
+
+
+Multiplexer
+---
+- $n$ selection inputs $S[n-1:0]$ select one $Y$ out of $2^n$ input lines $I[2^n-1:0]$
+- also called data selector, or simply MUX
+- n=1: *2-to-1 line multiplexer* with 1 selection input
+  - specification in truth table p30
+  - formulation: $Y=\overline{S}I_0+SI_1$
+    - $Y=I_0$ when $S=0$
+    - $Y=I_1$ when $S=1$
+  - implementation p31
+- n=2:  *4–to–1 line multiplexer* with 2 selection inputs
+  - specification in condensed truth table p32
+  - formulation: 
+    - $Y=m_S(k)I_k=(\overline{S_1}⋅\overline{S_0})I_0+(\overline{S_1}S_0)I_1+(S_1\overline{S_0})I_2+(S_1⋅S_0)I_3$
+  - implementation p33
+- n=n: $2^n$-to-1 line multiplexer
+  - $n$ selection inputs $S[n-1:0]$ select one $Y$ out of $2^n$ input lines $I[2^n-1:0]$
+  - $S[n-1:0]$ can represent $2^n$ different values 0 to $2^n-1$
+  - $Y=I_k$ if $S[n-1:0]=m_S(k)$
+    - $m_S(k)$ the $k^{th}$ minterm of $S[n-1:0]$
+  - $\displaystyle Y=\sum_{k=0}^{2^n-1}m_S(k)I_k$
+  - implementation: n selection inputs → a n-to-$2^n$ decoder → $2^n$ AND gates with $2^n$ inputs to be selected (enabling circuits) → $2^n$ input OR gate → Y=selected input
+
+💡 Implement a 64-to-1 line multiplexer
+---
+- p34
+
+
+💡 Implement a 4-to-1 line quad multiplexer
+---
+- formulation
+  - $\displaystyle Y[0:3]=\sum_{k=0}^{2^2-1}m_A(k)I[0:3,k]$
+- p35
+- generalized to $2^n$-to-1 $2^n$ multiplexer
+  - $\displaystyle Y[0:2^n-1]=\sum_{k=0}^{2^n-1}m_A(k)I[0:2^n-1,k]$
+
+
+📝 Multiplexer-Based Combinational Circuits
+---
+Implement a binary-adder bit, or a 1-bit binary adder in multiplexer. (Method ❶)
+- idea:
+  - a multiplexer consists of decoder and enabler-OR
+  - the decoder in generates the min
+terms of the selection inputs
+  - the enabler-OR selects $I_k$ if $S[n-1:0]=m_S(k)$, alternatively speaking,
+    - $I_k=1$, $m_S(k)$ is attached to the OR gate
+    - $I_k=0$, $m_S(k)$ is not selected, the $k^{th}$ enabler presents 0 to the OR gate
+- specification in truth table p24
+  - 3 inputs X,Y,Z means 8 minterms, and 2 outputs C,S
+  - a good choice: a dual 8–to–1 line multiplexer
+  - review __💡 Implement a 1-bit binary adder__ above
+    - $S(X, Y, Z ) = Σm (1, 2, 4, 7)$
+    - $C(X, Y, Z ) = Σm(3, 5, 6, 7)$
+- implementation p44
+  - $[I_{k,0},I_{k,1}]$ = the values  of [C,S] on the $k^{th}$ row of table p24
+- ---
+Method  ❷
+- idea: the enabler is an AND gate
+  - use one of the three variables such as $Z$ as the enabling input
+  - then $X,Y$ can be used as the selection inputs
+- $S(X, Y, Z ) = Σm (1, 2, 4, 7)$
+  - $=Σm(001,010,100,111)$
+  - $=Σm[(01,10)0, (00,11)1]$
+  - $=Σm[(1,2)\overline{Z}, (0,3)Z]$
+- $C(X, Y, Z ) = Σm(3, 5, 6, 7)$
+  - $=Σm(011,101,110,111)$
+  - $=Σm[(11)(\overline{Z}+Z), (01,10)Z]$
+  - $=Σm[(3)1, (1,2)Z]$, $m_0$ is NOT used, so disable it
+  - $=Σm[(0)0, (3)1, (1,2)Z]$
+- implementation with a dual 4-to-1 line multiplexer p45
+- this procedure can be generalized to implement any Boolean function of n variables with a $2^{n-1}$-to-(n-1) multiplexer
+
+
+📝 Implement the 4-variable function with multiplexer
+---
+- $F(A, B, C, D) = Σm(1, 3, 4, 11, 12, 13, 14, 15)$
+  - $=Σm(0001,0011,0100, 1011, 1100,1101,1110,1111)$
+  - $=Σm[(0)D,(1)D,(2)\overline{D},(5)D,(6)\overline{D},(6)D,(7)\overline{D}, (7)D]$
+  - $=Σ[(0,1,5)D,(2)\overline{D},(6,7)1]$, missing minterms are disabled, so
+  - $=Σ[(3,4)0,(0,1,5)D,(2)\overline{D},(6,7)1]$
+- use method ❷ generalization
+- p46 by truth table
+- by algebraic manipulation
+  - $F=Σm(0001,0011,0100, 1011, 1100,1101,1110,1111)$
+  - $=Σm[(0)D,(1)D,(2)\overline{D},(5)D,(6)\overline{D},(6)D,(7)\overline{D}, (7)D]$
+  - $=Σ[(0,1,5)D,(2)\overline{D},(6,7)1]$, missing minterms are disabled, so
+  - $=Σ[(3,4)0,(0,1,5)D,(2)\overline{D},(6,7)1]$
+
+
 
 
 # References
