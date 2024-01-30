@@ -57,8 +57,8 @@ Top-down design
 - optimization:
   - algebraic manipulation
   - truth table
-  - $N_i=\overline{A_i}B_i+A_i\overline{B_i}$
-  - $E=\overline{N_0+N_1+N_2+N_3}$
+  - $N_i=\bar{A_i}B_i+A_i\bar{B_i}$
+  - $E=\bar{N_0+N_1+N_2+N_3}$
 - mapping to nand gates+inverters, or nor gates+inverters p3
 
 | gate | nand  | nor |
@@ -85,7 +85,7 @@ Building blocks p2
 🍎 Example
 ---
 Implementation the following functions with NAND gates+inverters, then NOR gates+inverters
-- $F = AB + \overline{(AB)}C + \overline{(AB})\overline{D} + E$
+- $F = AB + \bar{(AB)}C + \bar{(AB})\bar{D} + E$
   - NAND gates+inverters p4
   - NOR gates+inverters p5
 
@@ -108,7 +108,7 @@ s-->|"Present<br>state"|c
 Functions of one variable
 ---
 p7
-| $X$ | $F=0$<br>Fixing | $F= 1$<br>Fixing| $F=X$<br>Transferring | $F=\overline{X}$<br>Inverting |
+| $X$ | $F=0$<br>Fixing | $F= 1$<br>Fixing| $F=X$<br>Transferring | $F=\bar{X}$<br>Inverting |
 |:--:|:--:|:--:|:--:|:--:|
 | 0 | 0 | 1 | 0 | 1 |
 | 1 | 0 | 1 | 1 | 0 |
@@ -136,7 +136,7 @@ p9
   - $M_2$: Only the rear switch R turns the house lights on and off
 - This requirement is specified in truth table p10
 - formulation:
-  - $H(P,R,I_0,I_1,I_2,I_3)=\overline{P}⋅\overline{R}I_0+\overline{P}RI_1+P\overline{R}I_2+PRI_3$
+  - $H(P,R,I_0,I_1,I_2,I_3)=\bar{P}\bar{R}I_0+\bar{P}RI_1+P\bar{R}I_2+PRI_3$
     - the modes are selected by $I[3:0]$
   - implementation: p11
   - $I[3:0]$ work as enabling signals p12
@@ -164,10 +164,10 @@ Decoding
   - generates no more than $2^n$ minterms from the n input variables
   - so only one output value $D_i$ is set to be 1 for each input value $m_i$
 - 1-to-2 decoder: p15
-   - $D[1:0]=[A,\overline{A}]$
+   - $D[1:0]=[A,\bar{A}]$
    - $D_i=m_i$
 - 2-to-4 decoder: p16
-  - $D[3:0]=[A_1A_0, A_1\overline{A_0}, \overline{A_1}A_0, \overline{A_1A_0}]$
+  - $D[3:0]=[A_1A_0, A_1\bar{A_0}, \bar{A_1}A_0, \bar{A_1A_0}]$
   - $D_i=m_i$
   - can be constructed in 2 1-to-2 decoder+ 4 AND gates
 - 3-to-8 decoder: p17
@@ -239,10 +239,10 @@ p-->s
 ---
 - Reimplement the 1-bit binary adder with complements
 - formulation:
-  - $\overline{S}(X, Y, Z ) = Σm (0,3,5,6)$
-  - ∴ S(X, Y, Z ) = $\overline{Σm (0,3,5,6)}$
-  - $\overline{C}(X, Y, Z ) = Σm(0,1,2,4)$
-  - ∴ $C(X, Y, Z ) = \overline{Σm(0,1,2,4)}$
+  - $\bar{S}(X, Y, Z ) = Σm (0,3,5,6)$
+  - ∴ S(X, Y, Z ) = $\bar{Σm (0,3,5,6)}$
+  - $\bar{C}(X, Y, Z ) = Σm(0,1,2,4)$
+  - ∴ $C(X, Y, Z ) = \bar{Σm(0,1,2,4)}$
 - implementation:
   - use NOR gate to combine the minterms
 
@@ -286,14 +286,14 @@ Multiplexer
 - also called data selector, or simply MUX
 - n=1: *2-to-1 line multiplexer* with 1 selection input
   - specification in truth table p30
-  - formulation: $Y=\overline{S}I_0+SI_1$
+  - formulation: $Y=\bar{S}I_0+SI_1$
     - $Y=I_0$ when $S=0$
     - $Y=I_1$ when $S=1$
   - implementation p31
 - n=2:  *4–to–1 line multiplexer* with 2 selection inputs
   - specification in condensed truth table p32
   - formulation: 
-    - $Y=m_S(k)I_k=(\overline{S_1}⋅\overline{S_0})I_0+(\overline{S_1}S_0)I_1+(S_1\overline{S_0})I_2+(S_1⋅S_0)I_3$
+    - $Y=m_S(k)I_k=(\bar{S_1}\bar{S_0})I_0+(\bar{S_1}S_0)I_1+(S_1\bar{S_0})I_2+(S_1⋅S_0)I_3$
   - implementation p33
 - n=n: $2^n$-to-1 line multiplexer
   - $n$ selection inputs $S[n-1:0]$ select one $Y$ out of $2^n$ input lines $I[2^n-1:0]$
@@ -343,10 +343,10 @@ Method  ❷
 - $S(X, Y, Z ) = Σm (1, 2, 4, 7)$
   - $=Σm(001,010,100,111)$
   - $=Σm[(01,10)0, (00,11)1]$
-  - $=Σm[(1,2)\overline{Z}, (0,3)Z]$
+  - $=Σm[(1,2)\bar{Z}, (0,3)Z]$
 - $C(X, Y, Z ) = Σm(3, 5, 6, 7)$
   - $=Σm(011,101,110,111)$
-  - $=Σm[(11)(\overline{Z}+Z), (01,10)Z]$
+  - $=Σm[(11)(\bar{Z}+Z), (01,10)Z]$
   - $=Σm[(3)1, (1,2)Z]$, $m_0$ is NOT used, so disable it
   - $=Σm[(0)0, (3)1, (1,2)Z]$
 - implementation with a dual 4-to-1 line multiplexer p45
@@ -360,11 +360,48 @@ Method  ❷
 - p46 by truth table
 - by algebraic manipulation
   - $F=Σm(0001,0011,0100, 1011, 1100,1101,1110,1111)$
-  - $=Σm[(0)D,(1)D,(2)\overline{D},(5)D,(6)\overline{D},(6)D,(7)\overline{D}, (7)D]$
-  - $=Σ[(0,1,5)D,(2)\overline{D},(6,7)1]$, missing minterms are disabled, so
-  - $=Σ[(3,4)0,(0,1,5)D,(2)\overline{D},(6,7)1]$
+  - $=Σm[(0)D,(1)D,(2)\bar{D},(5)D,(6)\bar{D},(6)D,(7)\bar{D}, (7)D]$
+  - $=Σ[(0,1,5)D,(2)\bar{D},(6,7)1]$, missing minterms are disabled, so
+  - $=Σ[(3,4)0,(0,1,5)D,(2)\bar{D},(6,7)1]$
 
 
+💡 Demo
+---
+Design a bCD–to–[Seven-Segment](https://en.wikipedia.org/wiki/Seven-segment_display) Decoder with logic gates, decoders, or multiplexers
+- specification: 
+  - function description p47
+  - truth table p48
+- optimization
+  - $a = \bar{A}C + \bar{A}BD + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C}\\
+b = \bar{A}\bar{B} + \bar{A} \bar{C} \bar{D} + \bar{A}CD + A\bar{B} \bar{C}\\
+c = \bar{A}B + \bar{A}D + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C}\\
+d = \bar{A}C\bar{D} + \bar{A} \bar{B}C + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C} + \bar{A}B\bar{C}D\\
+e = \bar{A}C\bar{D} + \bar{B} \bar{C} \bar{D}\\
+f = \bar{A}B\bar{C} + \bar{A} \bar{C} \bar{D} + \bar{A}B\bar{D} + A\bar{B} \bar{C}\\
+g = \bar{A}C\bar{D} + \bar{A} \bar{B}C + \bar{A}B\bar{C} + A\bar{B} \bar{C}$
+- implement in gates
+- implement in decoder or multiplexer
+- $a(A, B, C, D) = Σm(0, 2, 3, 5, 6, 7, 8, 9)\\
+b(A, B, C, D) = Σm(0, 1, 2, 3, 4, 7, 8, 9)\\
+c(A, B, C, D) = Σm(0, 1, 3, 4, 5, 6, 7, 8, 9)\\
+d(A, B, C, D) = Σm(0 ,2, 3, 5, 6, 8, 9)\\
+e(A, B, C, D) = Σm(0, 2, 6, 8)\\
+f(A, B, C, D) = Σm(0, 4, 5, 6, 8, 9)\\
+g(A, B, C, D) = Σm(2, 3, 4, 5, 6, 8, 9)$
+- decoder implementation:
+  - seven 4-to-16 line decoder + 7 OR gates with multiple inputs
+- multiplexer implementation: p49
+  - seven 8-to-1 multiplexers, or
+  - a 7-bit wide 8-to-1 multiplexer
+  - $[A,B,C]=S[2:0]$ and $\lbrace D,\bar{D}, 1, 0\rbrace$ to the data inputs
+
+
+Iterative Combinational Circuits
+---
+p50
+- Arithmetic functional blocks are typically designed to operate on *binary input vectors* and produce *binary output vectors*
+- the same subfunction, called cell,  is applied to each bit position
+- the overall implementation is an *array of cells*, also called *iterative array*
 
 
 # References
