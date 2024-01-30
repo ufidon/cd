@@ -356,10 +356,6 @@ Method  ❷
 📝 Implement the 4-variable function with multiplexer
 ---
 - $F(A, B, C, D) = Σm(1, 3, 4, 11, 12, 13, 14, 15)$
-  - $=Σm(0001,0011,0100, 1011, 1100,1101,1110,1111)$
-  - $=Σm[(0)D,(1)D,(2)\overline{D},(5)D,(6)\overline{D},(6)D,(7)\overline{D}, (7)D]$
-  - $=Σ[(0,1,5)D,(2)\overline{D},(6,7)1]$, missing minterms are disabled, so
-  - $=Σ[(3,4)0,(0,1,5)D,(2)\overline{D},(6,7)1]$
 - use method ❷ generalization
 - p46 by truth table
 - by algebraic manipulation
