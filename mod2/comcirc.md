@@ -478,19 +478,19 @@ possible
     - $F_5=\overline{C}+\overline{AD}+\overline{BD}$
   - $F_6(A,B,C,D)=\overline{ACD}+\overline{A}D+\overline{B}C+CD+A\overline{BD}$ p28.a
     - $F_6=Σm(0,1,2,3,4,5,7,8,10,11,15)=\overline{BD}+\overline{AC}+CD$ p28.b
-  - $F_7(A,B,C,D)=Σm(1,3,4,5,6,7,12,14)$
+  - $F_7(A,B,C,D)=Σm(1,3,4,5,6,7,12,14)$ p29
     - $F_7=\overline{A}D+B\overline{D}$
-  - $F_8(A,B,C,D)=Σm(0,5,10,11,12,13,15)$
-    - $F_8=\overline{ABCD}+B\overline{C}D+AB\overline{C}+A\overline{B}C+ACD$, or
-    - $=\overline{ABCD}+B\overline{C}D+AB\overline{C}+A\overline{B}C+ABD$
-  - $F_9(A,B,C,D)=Σm(0,1,2,4,5,10,11,13,15)$
+  - $F_8(A,B,C,D)=Σm(0,5,10,11,12,13,15)$ p30.a
+    - $F_8=\overline{ABCD}+B\overline{C}D+AB\overline{C}+A\overline{B}C+ACD$, p30.b or
+    - $=\overline{ABCD}+B\overline{C}D+AB\overline{C}+A\overline{B}C+ABD$ p30.b
+  - $F_9(A,B,C,D)=Σm(0,1,2,4,5,10,11,13,15)$ p31
     - $F_9=\overline{AC}+ABD+A\overline{B}C+\overline{ABD}$
 
 
 💡 Demo
 ---
-- Simplify $F$ to PoM forms
-  - $F(A,B,C,D)=Σm(0,1,2,5,8,9,10)$
+- Simplify PoM forms
+  - $F(A,B,C,D)=Σm(0,1,2,5,8,9,10)$ p32
     - ❶ Find $\overline{F}=Σm(3,4,6,7,11,12,13,14,15)$
       - i.e. the squares filled with 0's
     - ❷ Simplify $\overline{F}$ to sop: $\overline{F}=AB+CD+B\overline{D}$
@@ -514,8 +514,17 @@ Incompletely specified functions
   - $F(A,B,C,D)=Σm(1,3,7,11,15)$
   - Don't care conditions: $d(A,B,C,D)=Σm(0,2,5)$
   - ans:
-    - sop: $F=CD+\overline{A}D$
-    - PoS: $F=D(C+\overline{A})$
+    - sop: $F=CD+\overline{A}⋅\overline{B}$ (p33.a) or $F=CD+\overline{A}D$ (p33.b)
+    - PoS: $F=D(C+\overline{A})$ 
+      - from $\overline{F}=\overline{D}+A\overline{C}$
+
+
+💡 Demo (optional)
+---
+- An odd function outputs 1 if and only if odd number of input variables are equal to 1
+  - $X⨁Y⨁Z=X\overline{Y}⋅\overline{Z}+\overline{X}Y\overline{Z}+\overline{X}⋅\overline{Y}Z+XYZ$ p34.a, p35.a
+  - $A⨁B⨁C⨁D$ p34.b, p35.b
+- An Even function outputs 1 if and only if even number of input variables are equal to 1
 
 
 # References
