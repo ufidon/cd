@@ -209,7 +209,7 @@ Enabling Decoder Outputs
 Decoder-Based Combinational Circuits
 ---
 - Any combinational circuit with n inputs and m outputs can be implemented with an n–to–$2^n$-line decoder and m OR gates
-  - A decoder provides the $2n^$ minterms of n input variables
+  - A decoder provides the $2^n$ minterms of n input variables
   - any Boolean function can be expressed as a sum of minterms
 - A function having a list of $k$ minterms can be expressed in its complement form with $2^n - k$ minterms
 
@@ -301,7 +301,7 @@ Multiplexer
   - $Y=I_k$ if $S[n-1:0]=m_S(k)$
     - $m_S(k)$ the $k^{th}$ minterm of $S[n-1:0]$
   - $\displaystyle Y=\sum_{k=0}^{2^n-1}m_S(k)I_k$
-  - implementation: n selection inputs → a n-to-$2^n$ decoder → $2^n$ AND gates with $2^n$ inputs to be selected (enabling circuits) → $2^n$ input OR gate → Y=selected input
+  - implementation: n selection inputs → a n-to- $2^n$ decoder → $2^n$ AND gates with $2^n$ inputs to be selected (enabling circuits) → $2^n$ input OR gate → Y=selected input
 
 💡 Implement a 64-to-1 line multiplexer
 ---
@@ -372,22 +372,22 @@ Design a bCD–to–[Seven-Segment](https://en.wikipedia.org/wiki/Seven-segment_
   - function description p47
   - truth table p48
 - optimization
-  - $a = \bar{A}C + \bar{A}BD + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C}\\
-b = \bar{A}\bar{B} + \bar{A} \bar{C} \bar{D} + \bar{A}CD + A\bar{B} \bar{C}\\
-c = \bar{A}B + \bar{A}D + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C}\\
-d = \bar{A}C\bar{D} + \bar{A} \bar{B}C + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C} + \bar{A}B\bar{C}D\\
-e = \bar{A}C\bar{D} + \bar{B} \bar{C} \bar{D}\\
-f = \bar{A}B\bar{C} + \bar{A} \bar{C} \bar{D} + \bar{A}B\bar{D} + A\bar{B} \bar{C}\\
-g = \bar{A}C\bar{D} + \bar{A} \bar{B}C + \bar{A}B\bar{C} + A\bar{B} \bar{C}$
+  - $a = \bar{A}C + \bar{A}BD + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C}$
+  - $b = \bar{A}\bar{B} + \bar{A} \bar{C} \bar{D} + \bar{A}CD + A\bar{B} \bar{C}$
+  - $c = \bar{A}B + \bar{A}D + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C}$
+  - $d = \bar{A}C\bar{D} + \bar{A} \bar{B}C + \bar{B} \bar{C} \bar{D} + A\bar{B} \bar{C} + \bar{A}B\bar{C}D$
+  - $e = \bar{A}C\bar{D} + \bar{B} \bar{C} \bar{D}$
+  - $f = \bar{A}B\bar{C} + \bar{A} \bar{C} \bar{D} + \bar{A}B\bar{D} + A\bar{B} \bar{C}$
+  - $g = \bar{A}C\bar{D} + \bar{A} \bar{B}C + \bar{A}B\bar{C} + A\bar{B} \bar{C}$
 - implement in gates
 - implement in decoder or multiplexer
-- $a(A, B, C, D) = Σm(0, 2, 3, 5, 6, 7, 8, 9)\\
-b(A, B, C, D) = Σm(0, 1, 2, 3, 4, 7, 8, 9)\\
-c(A, B, C, D) = Σm(0, 1, 3, 4, 5, 6, 7, 8, 9)\\
-d(A, B, C, D) = Σm(0 ,2, 3, 5, 6, 8, 9)\\
-e(A, B, C, D) = Σm(0, 2, 6, 8)\\
-f(A, B, C, D) = Σm(0, 4, 5, 6, 8, 9)\\
-g(A, B, C, D) = Σm(2, 3, 4, 5, 6, 8, 9)$
+  - $a(A, B, C, D) = Σm(0, 2, 3, 5, 6, 7, 8, 9)$
+  - $b(A, B, C, D) = Σm(0, 1, 2, 3, 4, 7, 8, 9)$
+  - $c(A, B, C, D) = Σm(0, 1, 3, 4, 5, 6, 7, 8, 9)$
+  - $d(A, B, C, D) = Σm(0 ,2, 3, 5, 6, 8, 9)$
+  - $e(A, B, C, D) = Σm(0, 2, 6, 8)$
+  - $f(A, B, C, D) = Σm(0, 4, 5, 6, 8, 9)$
+  - $g(A, B, C, D) = Σm(2, 3, 4, 5, 6, 8, 9)$
 - decoder implementation:
   - seven 4-to-16 line decoder + 7 OR gates with multiple inputs
 - multiplexer implementation: p49
@@ -402,6 +402,227 @@ p50
 - Arithmetic functional blocks are typically designed to operate on *binary input vectors* and produce *binary output vectors*
 - the same subfunction, called cell,  is applied to each bit position
 - the overall implementation is an *array of cells*, also called *iterative array*
+
+
+Binary adders
+---
+- *half adder* adds 2 bits
+- *full adder* adds 3 bits
+  - can be constructed from 2 half adders
+
+
+Half adder
+---
+- function description
+```mermaid
+flowchart LR
+  x("X<br>Augend")-->h[\"half adder"\]
+  y("Y<br>Addend")-->h
+  h-->s("S<br>Sum")
+  h-->c("C<br>Carry")
+```
+- specification in truth table p51
+- formulation
+  - $S=\bar{X}Y+X\bar{Y}=X⨁Y$
+  - $C=XY$
+- implementation p52
+
+
+Full adder
+---
+```mermaid
+flowchart LR
+z("Z<br>Incoming carry")-->p
+x("X<br>Augend")-->p
+y("Y<br>Addend")
+c("C<br>output carry")
+s("S<br>sum")
+p[\"full adder"/]
+y-->p
+p-->c
+p-->s
+```
+- specification in truth table p53
+- formulation and optimization p54
+  - $S = \bar{X}\bar{Y}Z + \bar{X}Y\bar{Z} + X\bar{Y} Z + XYZ$
+    - $=X⨁Y⨁Z$
+  - $C = XY + XZ + YZ$
+    - $=XY+Z(X\bar{Y}+\bar{X}Y)$
+    - $=XY+Z(X⨁Y)$
+- implementation p55
+
+Binary ripple carry adder
+---
+- A 4-bit ripple carry adder p56
+- An n-bit ripple carry adder requires n full adders, with each output carry connected to the input carry of the next-higher-order full adder
+
+
+💡 Demo
+---
+- Calculate $1011+1101$ on the above 4-bit ripple carry adder
+
+
+Binary subtraction
+---
+The subtraction of two n-digit numbers, M - N , in base 2 can be done in three steps:
+- ❶ do M-N
+- ❷ If no end borrow occurs, then M ≥ N , and the result is nonnegative and correct
+- ❸ If an end borrow occurs, then M < N, and the difference, $M - N + 2^n$, is subtracted from $2^n$, and a *minus sign* is appended to the result
+- Subtraction of a binary number from $2^n$ to obtain an n-digit result is called taking the 2s complement of the number
+
+
+💡Demo
+---
+Unsigned binary subtraction by 2s complement subtract:
+- $1001 - 0110$
+- $0110 - 1011$
+- Run both calculations on the 4-bit adder–subtractor p57
+
+
+Complements
+---
+There are two types of complements for each base-r system: 
+- the radix complement
+  - the r’s complement, e.x.
+  - 2's complement in binary system
+- the diminished radix complement
+  - the (r - 1) ’s complement, e.x.
+  - 1's complement in binary system
+
+
+Complements in binary system
+---
+Given an n-bit N, 
+- its 1s complement is defined as
+  - $(2^n - 1) - N$ = complementing each bit of N
+    - ∵ $(2^n - 1)$ is n 1's, so $(2^n - 1) ≥ N$
+    - 1-1=0, 1-0=0
+- its 2s complement is defined as
+  - $2^n  - N$ = complementing each bit of N then plus 1 if $N≠0$
+    - ∵ $2^n  - N=[(2^n-1) - N]+1$
+  - 0 if N=0
+  - another method of finding 2s complement
+    - from right to left, find the first 1
+      - keep this first 1 and its right 0 unchanged
+      - flip all bits after this 1
+- the complement of the complement of N = N
+
+
+💡 Demo
+---
+- Find the 1s and 2s complement of
+  - 1011001
+    - 1s: 0100110
+    - 2s: 0100111
+  - 0001111
+    - 1s: 1110000
+    - 2s: 1110001
+
+
+Subtraction using 2s complement
+---
+The subtraction of two n-digit numbers, M - N , in base 2 can be done in three steps:
+- ❶ Add the 2s complement of the subtrahend N to the minuend M. This performs $M + (2^n - N) = M - N + 2^n$
+- ❷ the sum produces an end carry $2^n$ if M≥N. Discard the end carry, leaving result M - N. 
+- ❸ If M < N , the sum does not produce an end carry.
+  - ∵ it is equal to $2^n - (N - M)$, the 2s complement of N - M
+  - take the 2s complement of the sum and place a minus sign in front to obtain the result - (N - M)
+-  The subtraction operation can implemented with only a complementer and an adder using the 2s complement p58
+   -  S=0, the circuit is an adder
+      -  performs A+B
+   -  S=1, it becomes a substractor
+      -  performs A + 2s complement of B
+
+💡 Demo
+---
+Given X = 1010 and Y = 1000, perform unsigned binary subtraction by 2s complement addition
+- X-Y
+  - ans: 0010
+- Y-X
+  - ans: -0010
+- Run these calculations on the Adder-Subtractor Circuit p58
+
+
+Signed binary numbers
+---
+- two representations 
+  - *signed-magnitude*
+  - *signed-complement*
+- both use the most significant bit as the sign
+  - 0 for positive numbers and 
+  - 1 for negative numbers
+- *signed-magnitude* negates a number by changing its sign
+  - in addition and subtraction, the sign bit and those magnitude bits are processed separately
+  - correction step is needed in subtraction
+  - range of n-bits: $2^n$ different numbers
+    - positive numbers: $1,2,⋯, (2^{n-1}-1)$
+    - zero: a positive 0 and a negative 0
+    - negative numbers: $-1, -2, ⋯, -(2^{n-1}-1)$
+- *signed-complement* represents a negative number by its complement
+  - it negates a number by taking its complement
+  - either the 1s or the 2s complement can be used
+    - 2s complement is the most common
+- range of n-bits: $2^n$ different numbers
+  - positive numbers: $1,2,⋯, (2^{n-1}-1)$
+  - zero: a positive 0
+  - negative numbers: $-1, -2, ⋯, -2^{n-1}$
+
+
+💡 Demo
+---
+- represents -8 to +7 in both representation systems p59
+
+
+Signed Binary Addition and Subtraction
+---
+Perform M+N in
+- the signed-magnitude system
+  - same signs
+    - add the two magnitudes
+    - give the sum the same sign
+  - different signs
+    - subtract the magnitude of N from the magnitude of M
+    - the sign of the result is determined by whether there is an end borrow
+    - a 2s complement correction maybe needed based on the sign of M
+  - requires addition, and comparison or subtraction
+- signed 2s complement system
+  - add both numbers including their sign bits
+  - A carry out of the sign bit position is discarded
+  - requires only addition
+
+
+💡 Demo
+---
+- Calculate in the signed 2s complement system for the 4-bit numbers A=3, B=5
+  - $(±A)-(+B)=(±A)+(-B)$
+  - $(±A)-(-B)=(±A)+(+B)$
+- Run the calculation on the Adder-Subtractor Circuit p58
+
+
+Overflow
+---
+- An overflow occurs when the sum of two n-bit numbers occupies n+1 bits
+  - can be detected and signaled on computer p60
+  - processed automatically by exception handler
+- An overflow may occur in
+  - unsigned addition
+  - addition of two signed numbers with same signs
+  - subtraction of two signed numbers with different signs
+- there is no overflow in 
+  - unsigned subtraction
+  - addition of two signed numbers with different signs
+
+
+Other Arithmetic Functions
+---
+- such as 
+  - incrementing, decrementing, 
+  - multiplication and division by a constant, 
+  - greater-than comparison, and less-than comparison
+- multiple-bit operands can be implemented by
+  - using an iterative array of 1-bit cells, or
+  - re-tasking a circuit such as a binary adder or a binary multiplier
+    - this method is called *contraction*
 
 
 # References
