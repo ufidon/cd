@@ -623,6 +623,57 @@ Other Arithmetic Functions
   - using an iterative array of 1-bit cells, or
   - re-tasking a circuit such as a binary adder or a binary multiplier
     - this method is called *contraction*
+    - contraction can be applied to equations and circuit diagrams
+
+💡 Demo
+---
+Re-task a full-adder into a decrementer: $S=A-c$
+- $c$ is a constant, typically 1
+- Full adder equation for the i-th bit:
+  - $S_i = A_i ⨁ B_i ⨁ C_i$
+  - $C_{i + 1} = A_iB_i + A_iC_i + B_iC_i$
+- Set $B_i=1$, 
+  - $S_i = A_i ⨁ 1 ⨁ C_i=A_i ⨁ C_i$
+  - $C_{i + 1} = A_i⋅1 + A_iC_i + 1⋅C_i=A_i+C_i$
+- Suppose this retasking is used  in place of each of the four full adders in a 4-bit ripple carry adder
+  - $S = A + B + C_0$ becomes
+  - $S = A + 1111 + C_0$, in 2s complement,
+  - $⇒ S = A - 1 + C_0$, let $C_0=0$, we get the decrementer
+  - $S = A - 1$
+
+
+Contraction based on unused outputs
+---
+- X, unknown value, marks an output as unused
+  - those gates drive only unused output can be removed
+- Rules for contracting *equations*  with unused outputs
+  1. Delete all equations with Xs on the circuit outputs
+  2. Delete any input and intermediate variable that does not appear in any remaining equations
+  3. Repeat 1 and 2 until no new deletions are possible
+- Rules for contracting a logic diagram with unused outputs
+  1. Delete all gates with Xs on their outputs and place Xs on their input wires
+  2. Delete any external inputs and intermediate gates that only drive Xs
+  3. Repeat 1 and 2 until no new deletions are possible
+
+💡 Demo
+---
+- Contract an adder into an incrementer
+  - $S=A+c$
+    - $c$ is a constant, typically 1
+  - let $B=1$ in $A+B$, we get
+    - $A+1$
+- Show the contract process with a 3-bit adder p67
+  - $S[2:0]=A[2:0]+001$
+  - generalize the contraction to n≥3 bits
+
+
+📝 Practice
+---
+- Contract the adder-subtractor p58 circuit into 
+- an incrementer $S=0$ 
+- a decrementer $S=1$
+- set $B=0001$ by default
+
 
 
 # References

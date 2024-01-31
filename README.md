@@ -6,6 +6,7 @@
 
 # Reference textbooks
 - [lcdf5: Logic & Computer Design Fundamentals, 5e](https://www.pearson.com/en-us/subject-catalog/p/logic--computer-design-fundamentals/P200000003256)
+  - [companion website](https://media.pearsoncmg.com/ph/wps-wraps/ecs_mano_lcdf_5/cw/)
 - [The Elements of Computing Systems](https://www.nand2tetris.org/)
 
 # Online resources
