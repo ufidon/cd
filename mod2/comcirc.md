@@ -438,9 +438,9 @@ Optimize two-level circuits
 
 K-map of $Y=F(X_1,X_2, ⋯, X_n)$
 ---
-- a diagram made up of $2^n$ squares, $n≤4$
+- a rectangle made up of $2^n$ squares, $n≤4$
    - the squares are labeled with Gray code of $(X_1,X_2, ⋯, X_n)$
-- each square representing one row of the truth table 
+- each square representing one row (i.e. one minterm) of the truth table 
    - one minterm of a single output function
 - *adjacent terms* differ exactly one literal which appears uncomplemented in one and complemented in the other,e.g.
   - $AB, A\overline{B}$ so $AB + A\overline{B} = A(B+\overline{B})=A$
@@ -454,7 +454,7 @@ K-map of $Y=F(X_1,X_2, ⋯, X_n)$
 
 Map manipulation
 ---
-- All rectangles on a map made up of $2^n$ squares containing 1s correspond to *implicants*
+- All rectangles on a map made up of $2^m, m=0,1,2,⋯,n$ squares containing 1s correspond to *implicants*
 - *Prime implicant* is an implicant that is as large as possible
 - *Essential prime implicant* is a prime implicant that contains at least one term not covered by another prime implicant
 - *Selection rule*: minimize the overlap among prime implicants as much as
