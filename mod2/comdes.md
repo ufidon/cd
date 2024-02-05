@@ -58,7 +58,7 @@ Top-down design
   - algebraic manipulation
   - truth table
   - $N_i=\bar{A_i}B_i+A_i\bar{B_i}$
-  - $E=\bar{N_0+N_1+N_2+N_3}$
+  - $E=\overline{N_0+N_1+N_2+N_3}$
 - mapping to nand gates+inverters, or nor gates+inverters p3
 
 | gate | nand  | nor |
@@ -85,7 +85,7 @@ Building blocks p2
 🍎 Example
 ---
 Implementation the following functions with NAND gates+inverters, then NOR gates+inverters
-- $F = AB + \bar{(AB)}C + \bar{(AB})\bar{D} + E$
+- $F = AB + \overline{(AB)}C + \overline{(AB})\bar{D} + E$
   - NAND gates+inverters p4
   - NOR gates+inverters p5
 
@@ -240,9 +240,9 @@ p-->s
 - Reimplement the 1-bit binary adder with complements
 - formulation:
   - $\bar{S}(X, Y, Z ) = Σm (0,3,5,6)$
-  - ∴ S(X, Y, Z ) = $\bar{Σm (0,3,5,6)}$
+  - ∴ S(X, Y, Z ) = $\overline{Σm (0,3,5,6)}$
   - $\bar{C}(X, Y, Z ) = Σm(0,1,2,4)$
-  - ∴ $C(X, Y, Z ) = \bar{Σm(0,1,2,4)}$
+  - ∴ $C(X, Y, Z ) = \overline{Σm(0,1,2,4)}$
 - implementation:
   - use NOR gate to combine the minterms
 
@@ -270,6 +270,9 @@ Resolve the two encoding ambiguities
 Let's design a 4-to-2 priority encoder
 - specification in truth table p27
 - optimization with K-map p28
+  - $A_0=D_3+D_1\bar{D_2}$
+  - $A_1=D_2+D_3$
+  - $V=D_0+D_1+D_2+D_3$
 - implementation p29
 
 
@@ -293,7 +296,7 @@ Multiplexer
 - n=2:  *4–to–1 line multiplexer* with 2 selection inputs
   - specification in condensed truth table p32
   - formulation: 
-    - $Y=m_S(k)I_k=(\bar{S_1}\bar{S_0})I_0+(\bar{S_1}S_0)I_1+(S_1\bar{S_0})I_2+(S_1⋅S_0)I_3$
+    - $\displaystyle Y=\sum_{k=0}^3 m_S(k)I_k=(\bar{S_1}\bar{S_0})I_0+(\bar{S_1}S_0)I_1+(S_1\bar{S_0})I_2+(S_1⋅S_0)I_3$
   - implementation p33
 - n=n: $2^n$-to-1 line multiplexer
   - $n$ selection inputs $S[n-1:0]$ select one $Y$ out of $2^n$ input lines $I[2^n-1:0]$
@@ -506,6 +509,7 @@ Given an n-bit N,
       - keep this first 1 and its right 0 unchanged
       - flip all bits after this 1
 - the complement of the complement of N = N
+  - $2^n - (2^n  - N)=N$
 
 
 💡 Demo
