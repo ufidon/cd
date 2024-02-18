@@ -469,8 +469,12 @@ Binary subtraction
 ---
 The subtraction of two n-digit numbers, M - N , in base 2 can be done in three steps:
 - ❶ do M-N
-- ❷ If no end borrow occurs, then M ≥ N , and the result is nonnegative and correct
-- ❸ If an end borrow occurs, then M < N, and the difference, $M - N + 2^n$, is subtracted from $2^n$, and a *minus sign* is appended to the result
+- ❷ If no end borrow occurs, then M ≥ N , 
+  - the result is nonnegative and correct
+- ❸ If an end borrow occurs, then M < N, 
+  - in the difference, $M - N + 2^n$, $2^n$ is used to discard or cancel the end borrow
+  - subtract the difference from $2^n$, and append a *minus sign* to the result
+  - we get the final result, which is negative and correct
 - Subtraction of a binary number from $2^n$ to obtain an n-digit result is called taking the 2s complement of the number
 
 
@@ -478,7 +482,11 @@ The subtraction of two n-digit numbers, M - N , in base 2 can be done in three s
 ---
 Unsigned binary subtraction by 2s complement subtract:
 - $1001 - 0110$
+  - $=0011$, no end borrow occurs
+  - ∴ the result is nonnegative and correct
 - $0110 - 1011$
+  - $=1011+(-10000)$, end borrow `(-10000)` occurs, discard the end borrow by adding $2^4=10000$
+  - the final result $=-(2^4-1011)=-(10000-1011)=-0101$
 - Run both calculations on the 4-bit adder–subtractor p57
 
 
@@ -499,7 +507,7 @@ Given an n-bit N,
 - its 1s complement is defined as
   - $(2^n - 1) - N$ = complementing each bit of N
     - ∵ $(2^n - 1)$ is n 1's, so $(2^n - 1) ≥ N$
-    - 1-1=0, 1-0=0
+    - 1-1=0, 1-0=1
 - its 2s complement is defined as
   - $2^n  - N$ = complementing each bit of N then plus 1 if $N≠0$
     - ∵ $2^n  - N=[(2^n-1) - N]+1$
@@ -531,7 +539,7 @@ The subtraction of two n-digit numbers, M - N , in base 2 can be done in three s
 - ❸ If M < N , the sum does not produce an end carry.
   - ∵ it is equal to $2^n - (N - M)$, the 2s complement of N - M
   - take the 2s complement of the sum and place a minus sign in front to obtain the result - (N - M)
--  The subtraction operation can implemented with only a complementer and an adder using the 2s complement p58
+-  The subtraction operation can be implemented with only a complementer and an adder using the 2s complement p58
    -  S=0, the circuit is an adder
       -  performs A+B
    -  S=1, it becomes a substractor
@@ -541,8 +549,13 @@ The subtraction of two n-digit numbers, M - N , in base 2 can be done in three s
 ---
 Given X = 1010 and Y = 1000, perform unsigned binary subtraction by 2s complement addition
 - X-Y
+  - the 2s complement of Y is 1000, add it to X, get 1010+1000=10010
+  - discard end carry $2^4=10000$, get 0010
   - ans: 0010
 - Y-X
+  - the 2s complement of X is 0110, add it to Y, get 1000+0110=1110
+  - no carry occurs, take 2s complement of 1110 get 0001+1=0010
+  - append a minus sign to it get -0010
   - ans: -0010
 - Run these calculations on the Adder-Subtractor Circuit p58
 
@@ -556,16 +569,16 @@ Signed binary numbers
   - 0 for positive numbers and 
   - 1 for negative numbers
 - *signed-magnitude* negates a number by changing its sign
-  - in addition and subtraction, the sign bit and those magnitude bits are processed separately
+  - in addition and subtraction, the sign bit and those magnitude bits are processed `separately`
   - correction step is needed in subtraction
   - range of n-bits: $2^n$ different numbers
     - positive numbers: $1,2,⋯, (2^{n-1}-1)$
     - zero: a positive 0 and a negative 0
     - negative numbers: $-1, -2, ⋯, -(2^{n-1}-1)$
-- *signed-complement* represents a negative number by its complement
+- *signed-complement* represents a negative number by its complement, all bits are processed `together`
   - it negates a number by taking its complement
   - either the 1s or the 2s complement can be used
-    - 2s complement is the most common
+    - `2s complement` is the most common
 - range of n-bits: $2^n$ different numbers
   - positive numbers: $1,2,⋯, (2^{n-1}-1)$
   - zero: a positive 0
@@ -574,7 +587,18 @@ Signed binary numbers
 
 💡 Demo
 ---
-- represents -8 to +7 in both representation systems p59
+represents -8 to +7 in both representation systems 
+- in 4 bits: p59
+- in 8 bits:
+  - signed-magnitude: (1 bit sign)|(7 bits magnitude)
+    - -8 = (1)|(000_1000)=1000_1000
+    - +7 = (0)|(000_0111)=0000_0111
+  - 2s complement: 
+    - -8 = negation of 8 = 2s complement of 8 = (0000_1000)''=(1111_0111+1)=1111_1000
+      - 8 = negation of (-8) = 2s complement of (-8) = (1111_1000)''=(0000_0111+1)=0000_1000
+    - 7, positive number, no change = 0000_0111
+      - -7 = negation of 7 = 2s complement of 7 = (0000_0111)''=(1111_1000+1)=1111_1001
+      - 7 = negation of (-7) = 2s complement of (-7) = (1111_1001)''=(0000_0110+1)=0000_0111
 
 
 Signed Binary Addition and Subtraction
@@ -600,6 +624,13 @@ Perform M+N in
 - Calculate in the signed 2s complement system for the 4-bit numbers A=3, B=5
   - $(±A)-(+B)=(±A)+(-B)$
   - $(±A)-(-B)=(±A)+(+B)$
+- ans:
+  - A=3=0011, -A=(0011)''=(1100+1)=1101
+  - B=5=0101, -B=(0101)''=(1010+1)=1011
+  - (+A)+(-B)=(+3)+(-5)=0011+1011=1110=-(1110)''=-(0001+1)=-0010=-2
+  - (-A)+(-B)=(-3)+(-5)=1101+1011=(1)1000 (discard the carry) = 1000 = -(1000)''=-(0111+1)=-1000=-8
+  - (+A)+(+B)=(+3)+(+5)=0011+0101=1000 = 8
+  - (-A)+(+B)=(-3)+(+5)=1101+0101=(1)0010 (discard the carry) = 0010 = 2
 - Run the calculation on the Adder-Subtractor Circuit p58
 
 
@@ -615,6 +646,17 @@ Overflow
 - there is no overflow in 
   - unsigned subtraction
   - addition of two signed numbers with different signs
+
+
+💡 Demo of overflow
+---
+Calculate in the signed 2s complement system for 4-bit numbers
+- 7+6
+  - = 0111+0110=1101=-(1101)''=-(0010+1)=-(0011)=-3
+- 7-(-6) = 7+6
+- -7-6=(-7)+(-6)
+  - = (0111)''+(0110)''=(1000+1)+(1001+1)=1001+1010=(1)0011 (discard the carry) = 0011 = 3
+
 
 
 Other Arithmetic Functions
