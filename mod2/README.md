@@ -7,8 +7,8 @@ __Computer Building Blocks__
     - [nb format](./comcirc.ipynb)
   - [Combinational logic design](./comdes.md)
     - [nb format](./comdes.ipynb)
-- [Sequential logic](./seq.md)
+- [Sequential logic](./seq.ipynb)
   - outputs $\vec{y}$ depend on inputs $\vec{x}$ and current state $\vec{S}$
   - $\vec{y} = f(\vec{x},\vec{S})$
-- [Register](./reg.md)
-- [Memory](./mem.md)
+- [Register](./reg.ipynb)
+- [Memory](./mem.ipynb)
