@@ -108,3 +108,4 @@ Direct Inputs
   - direct reset or clear to 0
 - D Flip-Flop with Direct Set and Reset p12
 
+
