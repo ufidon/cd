@@ -629,8 +629,10 @@ Perform M+N in
   - B=5=0101, -B=(0101)''=(1010+1)=1011
   - (+A)+(-B)=(+3)+(-5)=0011+1011=1110=-(1110)''=-(0001+1)=-0010=-2
   - (-A)+(-B)=(-3)+(-5)=1101+1011=(1)1000 (discard the carry) = 1000 = -(1000)''=-(0111+1)=-1000=-8
-  - (+A)+(+B)=(+3)+(+5)=0011+0101=1000 = 8
+  - (+A)+(+B)=(+3)+(+5)=0011+0101=1000
     - Is this right? check p59
+    - 1000 the highest bit is 1, i.e. it's a negative number equals
+    - -(1000)'' = -[(1000)'+1] = -[0111+1]=-1000=-8
   - (-A)+(+B)=(-3)+(+5)=1101+0101=(1)0010 (discard the carry) = 0010 = 2
 - Run the calculation on the Adder-Subtractor Circuit p58
 
