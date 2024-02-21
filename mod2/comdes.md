@@ -682,7 +682,7 @@ Re-task a full-adder into a decrementer: $S=A-c$
   - $S_i = A_i ⨁ B_i ⨁ C_i$
   - $C_{i + 1} = A_iB_i + A_iC_i + B_iC_i$
 - Set $B_i=1$, 
-  - $S_i = A_i ⨁ 1 ⨁ C_i=A_i ⨁ C_i$
+  - $S_i = A_i ⨁ 1 ⨁ C_i=\overline{A_i ⨁ C_i}$
   - $C_{i + 1} = A_i⋅1 + A_iC_i + 1⋅C_i=A_i+C_i$
 - Suppose this retasking is used  in place of each of the four full adders in a 4-bit ripple carry adder
   - $S = A + B + C_0$ becomes

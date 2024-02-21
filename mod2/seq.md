@@ -107,5 +107,3 @@ Direct Inputs
   - direct set or preset to 1
   - direct reset or clear to 0
 - D Flip-Flop with Direct Set and Reset p12
-
-
