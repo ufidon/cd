@@ -62,7 +62,7 @@ Q4
 Q5
 ---
 - Find the Boolean function for a circuit then simplify it
-- ![circ1](mcir1.png)
+- ![circ1](./img/mcir1.png)
 - $Y=\overline{(A+\bar{B})+\bar{A}\bar{B}}$
 - =$\bar{A}B$
 
