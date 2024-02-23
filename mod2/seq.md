@@ -15,8 +15,8 @@ Topics
   - state transition diagrams
 
 
-Sequential Circuit Definitions
----
+# Sequential Circuit Definitions
+
 p1
 - the output Y and next state S' of a sequential circuit depends on its current state S and input X:
   - $Y+S' = f(S, X)$
@@ -37,6 +37,8 @@ However, there is no way to override the storage without additional inputs.
   - the simplest form of clocked sequential circuits are called `flip-flops`
     - they store only one bit of information
     - and change state only in response to a clock pulse
+
+# Latches
 
 SR latch
 ---
@@ -91,6 +93,8 @@ D Latch p8
   - When C=0, Q outputs old D
 - it has an unreliable operation can be solved with `master–slave` flip-flop in p9
   - the left is the master and the right is the slave
+
+# Flip-flops
 - flip-flop state changes have two trigger schemes
   - `pulse-triggered` or `level-triggered` has two types
     - `positive-pulse triggered` or `high-level triggered` 
@@ -107,3 +111,210 @@ Direct Inputs
   - direct set or preset to 1
   - direct reset or clear to 0
 - D Flip-Flop with Direct Set and Reset p12
+
+
+Summary of latches and flip-flops
+---
+- Without triggers
+
+| name | symbol | set | reset | hold | undefined |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| SR latch |![sr](./img/SR.png) | SR=10<br>Q=1 | SR=01<br>Q=0 | SR=00<br>Q | SR=11<br>QQ'=00 |
+| S'R' latch |![scrc](./img/ScRc.png) | S'R'=01<br>Q=1 | S'R'=10<br>Q=0 | S'R'=11<br>Q | S'R'=00<br>QQ'=11 |
+| D latch with 1 ctrl | ![d](./img/D1.png)| CD=11<br>Q=1 | CD=10<br>Q=0 | CD=0x <br>Q | - |
+| D latch with 0 ctrl | ![d](./img/D0.png)| CD=01<br>Q=1 | CD=00<br>Q=0 | CD=1x <br>Q | - |
+
+- With triggers
+
+| name | symbol | set | reset | hold | undefined |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| HL-triggered SR latch |![srht](./img/SRht.png) | CSR=110<br>Q=1 | CSR=101<br>Q=0 | CSR=x00 or 0xx<br>Q | CSR=111<br>Q=x |
+| LL-triggered SR latch |![srht](./img/SRlt.png) | CSR=010<br>Q=1 | CSR=001<br>Q=0 | CSR=x00 or 1xx<br>Q | CSR=011<br>Q=x |
+| HL-triggered D latch | ![d](./img/Dht.png)| CD=11<br>Q=1 | CD=10<br>Q=0 | CD=0x <br>Q | - |
+| LL-triggered D latch | ![d](./img/Dlt.png)| CD=01<br>Q=1 | CD=00<br>Q=0 | CD=1x <br>Q | - |
+| RE-triggered D latch | ![d](./img/Drt.png)| CD= ↑1<br>Q=1 | CD=↑0<br>Q=0 | CD=⤒x <br>Q | - |
+| FE-triggered D latch | ![d](./img/Dft.png)| CD=↓1<br>Q=1 | CD=↓0<br>Q=0 | CD=⤒x <br>Q | - |
+
+
+# Sequential Circuit Analysis
+
+Three ways to describe sequential circuits
+---
+- Equations: y,S'=f(x,S)
+- logic diagrams
+- State tables and state diagrams
+
+
+Synchronous sequential circuits
+---
+- include flip-flops with the clock inputs driven directly or indirectly by a clock signal
+- the direct sets and resets are unused during the normal functioning of the circuit
+
+
+Input Equations
+---
+- The logic diagram of a sequential circuit consists of 
+  - flip-flops and optional
+  - combinational gates 
+    - driving the inputs of the flip-flops 
+      - can be described by a set of Boolean functions called `flip-flop input equations`
+      - the `dependent variable` is denoted by the flip-flop input symbol with the name of the flip-flop output, such as $D_A$
+    - and consuming the outputs of the flip-flops
+
+
+🍎 Example
+---
+List the Boolean equations of p13
+- input equations
+  - $D_A=AX+BX$
+  - $D_B=\overline{A}X$
+- output equation
+  - $Y=(A+B)\overline{X}$
+
+
+State table
+---
+One dimensional state table p14 created with `state transition equations`
+- $A(t+1)=D_A=AX+BX$
+- $B(t+1)=D_B=\overline{A}X$
+- `t+1` indicates the next state
+- `t` indicates the current state, such as $D_{A(t)}, A(t)$, simply written as $D_A, A$
+
+Two dimensional state table p15
+
+- Two sequential circuit models
+- Mealy model
+  - the outputs depend on the inputs, and the states
+- Moore model 
+  - the outputs depend on only the states
+
+
+🍎 Example
+---
+A Moore model circuit p16
+- input equation
+  - $D_A=A\bigoplus X \bigoplus Y$
+- output equation
+  - $Z=A$
+
+
+State Diagram
+---
+- p17.a the state diagram of state table p15
+- p17.b the state diagram of state table p16
+
+
+Equivalent states
+---
+- generate identical output sequence from each possible input sequence
+  - i.e. same next state and outputs from each input symbol
+- equivalent states can be merged into one, called `state reduction`
+- In p17.a
+  - states 01, 10, 11 are equivalent
+  - they can be merged into one, then only one flip-flop is needed instead of two
+
+
+Sequential Circuit Simulation
+---
+Two types of simulation:
+- functional simulation without gate delay
+- timing simulation with gate delay
+
+p18
+
+
+# Sequential Circuit Design
+- the key is `finding state diagrams and state tables`
+- procedure
+  - Specification
+  - Formulation
+  - State assignment
+  - Flip-Flop input equation Determination
+  - Output equation Determination
+  - Optimization
+  - Technology mapping
+  - Verification
+- The minimum number $n_f$ of flip-flops is determined by the number of states $n_S$ in the circuit
+   - $n_f=⌈\log_2 n_S⌉$
+ - The `initial state` of the flip-flops can be initiated with a `reset` signal p19
+   - also called `reset state`
+
+
+🍎 Example: finding a state diagram
+---
+- a `sequence recognizer`
+  - finds a substring `1101` in a long string
+    - p31, p32
+  - p20 state diagram
+  - p21 state table
+
+
+🍎 Example: finding a state diagram
+---
+- (`optional`) a BCD–to–excess-3 decoder
+   - Y[3:0] = BCD + 0011
+     - such as, 1000(8)=0101(5)+0011(3)
+     - but outputs one bit per clock instead of simultaneously
+   - and `least significant bit first`
+     - such as 0101(5) applies to the input as 1010, outputs 0001
+- function specification
+  - p22.a least significant bit first
+  - p22.b in order of common prefixes
+    - p23 state diagram from p22.b
+
+
+State assignment
+---
+- in two orders:
+  - counting order
+  - Gray code order
+- encoding states with one-hot code
+
+
+🍎 Example
+---
+- State assignments for the sequence recognizer
+  - p24 Gray code
+  - p25 one-hot code
+
+
+🍎 Example
+---
+Gray code design for the sequence recognizer based on p24
+- two flip-flops are needed to represent the four states
+- input equations:
+  - $A(t + 1) = D_A(A, B, X) = Σm(3, 6, 7)$
+  - $B(t + 1) = D_B(A, B, X) = Σm(1, 3, 5, 7)$
+- output equation
+  - $Z(A, B, X) = Σm(5)$
+- simplify these equations with K-map p26
+  - $D_A = AB + BX$
+  - $D_B = X$
+  - $Z = A\bar{B}X$
+- a logic diagram p27
+
+
+🍎 Example
+---
+One-hot code design for the sequence recognizer based on p25
+- four flip-flops are needed to represent the four states
+- input equations:
+  - $A(t + 1) = D_A = A\bar{X} + B\bar{X} + D\bar{X} = (A + B + D)\bar{X}$
+  - $B(t + 1) = D_B =  AX + DX = (A + D)X$
+  - $C(t + 1) = D_C = BX + CX = (B + C)X$
+  - $D(t + 1) = D_D = CX$
+- output equation
+  - $Z = DX$
+- a logic diagram p28
+
+
+Designing with Unused States
+---
+- A circuit with `n` flip-flops and `S` states has ($2^n-S$) unused states
+  - e.x. p29
+    - three unused states 000, 110, and 111 combined with input X results in six unused combinations
+- unused states can be treated as don’t-care conditions
+- used in K-map to obtain the optimized equations
+  - $D_A = AX + BX + \bar{B}\bar{C}$
+  - $D_B = \bar{A}\bar{C}\bar{X} + \bar{A}\bar{B}X$
+  - $D_C = \bar{X}$
