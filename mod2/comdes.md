@@ -206,6 +206,27 @@ Enabling Decoder Outputs
   - such a circuit is called a *demultiplexer*
 
 
+💡 Demo
+---
+```VHDL
+-- 2-to-4 line decoder with enable
+A0_n <= not A0;
+A1_n <= not A1;
+D0 <= A1_n and A0_n and EN;
+D1 <= A1_n and A0 and EN;
+D2 <= A1 and A0_n and EN;
+D3 <= A1 and A0 and EN;
+```
+
+```verilog
+// 2-to-4 line decoder with enable
+D0 = ~A1 & ~A0 & EN;
+D1 = ~A1 & A0 & EN;
+D2 = A1 & ~A0 & EN;
+D3 = A1 & A0 & EN;
+```
+
+
 Decoder-Based Combinational Circuits
 ---
 - Any combinational circuit with n inputs and m outputs can be implemented with an n–to–$2^n$-line decoder and m OR gates
@@ -309,6 +330,42 @@ Multiplexer
 💡 Implement a 64-to-1 line multiplexer
 ---
 - p34
+
+
+💡 Demo
+---
+```vhdl
+-- 4-to-1 line mux using when-else
+Y <= I(0) when S="00" else
+     I(1) when S="01" else
+     I(2) when S="10" else
+     I(3) when S="11" else
+     'X';
+
+-- or using with-select
+with S select
+  Y <= I(0) when S="00",
+       I(1) when S="01",
+       I(2) when S="10",
+       I(3) when S="11",
+       'X' when others;
+```
+
+```verilog
+assign Y = (~S[1]&~S[0]&I(0)) |
+           (~S[1]& S[0]&I(1)) |
+           ( S[1]&~S[0]&I(2)) |
+           ( S[1]& S[0]&I(3));
+
+// or 
+assign Y = (S==2'b00)?I(0):
+           (S==2'b01)?I(1):
+           (S==2'b10)?I(2):
+           (S==2'b11)?I(3):1'bx; 
+
+// or
+assign Y = S[1]?(S[0]?I[3]:I[2]):(S[0]?I[1]:I[0]);
+```
 
 
 💡 Implement a 4-to-1 line quad multiplexer
@@ -458,6 +515,19 @@ Binary ripple carry adder
 ---
 - A 4-bit ripple carry adder p56
 - An n-bit ripple carry adder requires n full adders, with each output carry connected to the input carry of the next-higher-order full adder
+
+
+💡 Demo
+---
+```vhdl
+-- 4-bit adder
+sum <= ('0'&A)+('0'&B)+"0000"&C0;
+c4 <= sum(4);
+```
+
+```verilog
+assign {C4,S}=A+B+C0;
+```
 
 
 💡 Demo

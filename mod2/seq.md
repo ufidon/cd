@@ -105,6 +105,28 @@ D Latch p8
 - The standard graphics symbols for the different types of latches and lip-lops are shown in p11
 
 
+💡 Demo
+---
+```vhdl
+-- positive-edge-triggered D flip-flop with reset;
+if (RESET = '1) then
+  Q <= '0';
+elsif (CLK'event and CLK='1') then
+  Q <= D;
+end if;
+```
+
+```verilog
+always @(posedge CLK or posedge RESET)
+begin
+  if (RESET)
+    Q <= 0;
+  else
+    Q <= D;
+end
+```
+
+
 Direct Inputs
 ---
 - Flip-flops can set and reset their storages asynchronously by
@@ -306,6 +328,38 @@ One-hot code design for the sequence recognizer based on p25
 - output equation
   - $Z = DX$
 - a logic diagram p28
+
+
+```verilog
+always @(posedge CLK or posedge RESET)
+begin
+  if (RESET)
+    state <= S0;
+  else
+    state <= next_state;
+end
+
+always @(X or state)
+begin
+  case (state)
+    S0: next_state = X? S1:S0;
+    S1: next_state = X? S2:S0;
+    S2: next_state = X? S2:S3;
+    S3: next_state = X? S1:S0;
+  endcase
+end
+
+always @(X or state)
+begin
+  case (state)
+    S0: Z = 1'b0;
+    S1: Z = 1'b0;
+    S2: Z = 1'b0;
+    S3: Z = X?1'b1:1'b0;
+  endcase
+end
+
+```
 
 
 Designing with Unused States

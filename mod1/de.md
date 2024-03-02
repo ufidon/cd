@@ -1,8 +1,10 @@
 __Data Encoding__
+_lcdf5 chapter 1_
 
 
 [BCD - binary coded decimal](https://en.wikipedia.org/wiki/Binary-coded_decimal)
 ---
+p9
 - computers save and process numbers in binary natively
 - the way to represent data in binary is _data encoding_
 - the 10 decimal digits can be encoded as BCD
@@ -49,6 +51,7 @@ Alphanumeric codes
 
 [ASCII - American Standard Code for Information Interchange](https://en.wikipedia.org/wiki/ASCII)
 ---
+p10-11
 - uses 7 bits to encode 128 characters
   - 94 printable characters
     - 26 upper case letters
@@ -79,6 +82,7 @@ Alphanumeric codes
 
 Localization
 ---
+p12
 - adapts computers to different world regions and languages
 - also called internationalization
 - [Unicode](https://en.wikipedia.org/wiki/Unicode) represents most of the world's languages
@@ -139,6 +143,7 @@ Localization
 
 [Gray code](https://en.wikipedia.org/wiki/Gray_code)
 ---
+p13
 - also called _reflected binary code (RBC)_ or _reflected binary (RB)_
 - an ordering of the binary numeral system such that _two successive values differ in only one bit_ 
   - saves power since bit flip consumes electricity
@@ -164,7 +169,7 @@ Localization
 | 15  | 1111 | 1000 | 8   |
 
 - many applications, such as encoding shaft angle positions
-- <img src="./img/sae.jpg" alt="shaft-angle encoder" style="width:600px;">
+- p14
 
 |     |     |     |     |     |
 | --- | --- | --- | --- | --- |

@@ -1,7 +1,9 @@
 __Number System__
+_lcdf5 chapter 1_
 
 [Decimal numeral system](https://en.wikipedia.org/wiki/Decimal)
 ---
+- numbers with different bases p8
 - contains symbols: `0,1,2,3,4,5,6,7,8,9` and `.`
 - $\displaystyle a_{m}a_{m-1}\cdots a_{0}.b_{1}b_{2}\cdots b_{n} = \sum_{i=0}^m a_i10^i + \sum_{j=1}^nb_j10^{-j}$
 - `10` is the `base` or `radix`

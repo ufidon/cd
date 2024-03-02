@@ -1,4 +1,5 @@
 __Digital Systems__
+_lcdf5 chapter 1_
 
 
 Digital systems and information
@@ -6,6 +7,9 @@ Digital systems and information
 - ![it](./img/it.gif)
 - information is represented as data
 - data is encoded as number
+- digital computer p2
+- embedded systems p5
+
 
 
 Signal flow diagram
@@ -21,11 +25,13 @@ qd --->|DAC<br>digital-to-analog converter|gs
 
 Signal flow illustration
 ---
+p3
 - ![adda](https://upload.wikimedia.org/wikipedia/commons/5/5a/Conversion_AD_DA.png)
 
 
 Quantization
 ---
+p4
 | 2-bit resolution | 3-bit resolution |
 | --- | --- |
 | <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/2-bit_resolution_analog_comparison.png" alt="2b" style="width:400px;"> | <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/3-bit_resolution_analog_comparison.png" alt="3b" style="width:400px;">
@@ -35,6 +41,8 @@ Quantization
 ---
 - <img src="https://www.allaboutcircuits.com/uploads/articles/voltage-tolerance-of-ttl-gate-inputs.jpg" alt="2b" style="width:600px;">
 
+p1
+
 | level\truth | Positive logic | Negative logic |
 | --- | --- | --- |
 | high | true (1) | false (0) |
@@ -43,6 +51,7 @@ Quantization
 
 [Units of information](https://en.wikipedia.org/wiki/Units_of_information)
 ---
+p7
 | Unit | # of bits |  # of values representable | number ranges |
 | --- | --- | --- | --- |
 | bit | 1 | $2^1=2$ | 0, 1 |
@@ -55,6 +64,7 @@ Quantization
 
 A vertical profile of a computer
 ---
+p6
 | layer | name |
 | --- | --- |
 | S | Applications |

@@ -13,6 +13,7 @@ Objectives
 
 Boolean algebra
 ---
+p1
 - the math behind combinational logic
 - the domain $D$ has only two values or constants: `TRUE (T, 1); FALSE (F, 0)`
 - each variable $x$ takes value of `1` or `0` at a time
@@ -26,7 +27,7 @@ Boolean algebra
   - `NOT`, ¬, ‾
     - ¬x, $\overline{x}$
     - negate or flip x
-
+- p2-3
 
 Truth table of basic operations
 ---
@@ -63,7 +64,7 @@ How to draw a truth table
 💡 [Prove Boolean equations with truth table](https://www.emathhelp.net/en/calculators/discrete-mathematics/truth-table-calculator/)
 ---
 - basic law
-- De Morgan's law
+- De Morgan's law p14
 
 
 💡 [Prove Boolean equations with other equations](https://www.emathhelp.net/en/calculators/discrete-mathematics/boolean-algebra-calculator/)
@@ -151,14 +152,14 @@ Logic gates
 - A computer consists of many ICs (integrated chips)
 - An IC consists of many logic gates
 - Basic logic gates (ch2.p4)
-
+- p4
 ![gates](./img/gates.png)
 
 
 Gate extension and combination
 ---
 - gate AND, OR, NAND, NOR can be extended to have more than two inputs
-- each basic gate can be implemented with several other basic gates (ch2.p5)
+- each basic gate can be implemented with several other basic gates (p5)
   - ❶An AND gate can be implemented with a NAND gated output to a NOT gate
     - $Y=\overline{\overline{AB}}$
   - ❷An OR gate can be implemented with two NOT gates output to a NAND gate
@@ -214,7 +215,7 @@ Describe gates in HDL
     - number of rows: $2^{N_i}$
     - $N_i$ is the number of inputs
   - circuit diagram
-  - HDL description
+  - HDL description p6-8
     - Verilog HDL
     - VHDL
 
@@ -301,7 +302,7 @@ end structural;
   - HDL description
     - Verilog HDL (ch2.p11)
     - VHDL (ch2.p12)
-
+- p15-16
 
 Number of descriptions of a logic circuit of each method
 ---
@@ -330,14 +331,14 @@ Boolean function standard forms
 
 minterms and maxterms of a function $F$
 ---
-- a *minterm* is a product term contains all the variables of $F$
+- p17 a *minterm* is a product term contains all the variables of $F$
   - each variable shows up exactly once, either complemented or uncomplemented
   - there are $2^n$ minterm for $n$ variables $A_1,A_2,⋯, A_n$
     - denoted as $m_0$ to $m_{2^n-1}$
     - $m_0=\overline{A_1}⋅\overline{A_2}⋯\overline{A_n}$
     - $m_i$ is the term has the binary number equals to decimal $i$ by substituting $A_k=1$ and $\overline{A_k}=0$
     - $m_{2^n-1}=A_1A_2⋯A_n$
-- *maxterms* are the complements of minterms
+- p18 *maxterms* are the complements of minterms
   - denoted as $M_0$ to $M_{2^n-1}$
   - $M_i = \overline{m_i}$
 
@@ -382,16 +383,18 @@ minterms and maxterms of a function $F$
 
 📝 Practice
 ---
+- p19-20
 - Apply the demo steps on
   - $F = \overline{X}⋅\overline{Y}⋅\overline{Z} + \overline{X}⋅Y⋅\overline{Z}+X\overline{Y}Z+XYZ$
 - to find the PoM $F$
   - $F=ΠM(1,3,4,6)$
 - draw the *two-level circuits* for $F$ in the two forms
+- p21
 
 
 💡 Demo
 ---
-- Convert $F=\overline{Y}+\overline{X}Z$ into som and PoM using two ways: 
+- p22 Convert $F=\overline{Y}+\overline{X}Z$ into som and PoM using two ways: 
   - ➊ truth table and 
   - ➋ algebraic manipulation
   - ans: $F=∑m(0,1,2,4,5)=ΠM(3,6,7)$
@@ -445,10 +448,11 @@ K-map of $Y=F(X_1,X_2, ⋯, X_n)$
 - *adjacent terms* differ exactly one literal which appears uncomplemented in one and complemented in the other,e.g.
   - $AB, A\overline{B}$ so $AB + A\overline{B} = A(B+\overline{B})=A$
   - $\overline{A}BC, \overline{A}\overline{B}C$ so $\overline{A}BC+ \overline{A}\overline{B}C=\overline{A}C$
-- ch2.p23
+
 
 💡 Demo
 ---
+- p23
 - [Draw K-maps of 2,3,4 variables](https://www.boolean-algebra.com/kmap)
 
 
