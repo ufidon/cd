@@ -172,7 +172,7 @@ Other counters
 - p24. state table and flip-flop inputs for BCD counter
   - the unused states for minterms 1010 through 1111 are used as don't-care conditions
 - simplified input equations for the BCD counter
-  - D₁=Q1'
+  - D₁=Q₁'
   - D₂=Q₂⨁Q₁Q₈'
   - D₄=Q₄⨁Q₁Q₂
   - D₈=Q₈⨁(Q₁Q₈+Q₁Q₂Q₄)
