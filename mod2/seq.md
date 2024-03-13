@@ -19,7 +19,8 @@ Topics
 
 p1
 - the output Y and next state S' of a sequential circuit depends on its current state S and input X:
-  - $Y+S' = f(S, X)$
+  - $Y = f(S, X)$
+  - $S_{next} = g(S,X)$
 
 
 Logic Structures for Storing Information
@@ -102,7 +103,7 @@ D Latch p8
   - `edge-triggered`, prevalent in contemporary design, also has two types
     - `negative-edge triggered` or `falling-edge triggered` p9
     - `positive-edge triggered` or `rising-edge triggered` p10
-- The standard graphics symbols for the different types of latches and lip-lops are shown in p11
+- The standard graphics symbols for the different types of latches and flip-flops are shown in p11
 
 
 💡 Demo
@@ -162,7 +163,9 @@ Summary of latches and flip-flops
 
 Three ways to describe sequential circuits
 ---
-- Equations: y,S'=f(x,S)
+- Equations: 
+  - $y=f(x,S)$
+  - $S_{next} = g(x,S)$
 - logic diagrams
 - State tables and state diagrams
 
