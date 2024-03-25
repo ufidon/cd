@@ -17,16 +17,16 @@ Registers and counters
 
 Registers with parallel load
 ---
-- p1.a 4-bit register with asynchronous clear'
-  - p1.b symbol
-  - p1.c apply load' control: C inputs = load' + clock
+- (p1.a*) 4-bit register with asynchronous clear'
+  - (p1.b) symbol
+  - (p1.c) apply load' control: C inputs = load' + clock
     - this technique is called `clock gating`
-- p2. 4-bit register with parallel load
+- (p2). 4-bit register with parallel load
 
 
 Register transfers
 ---
-- p3. digital system design can be partitioned into two types of modules
+- (p3). digital system design can be partitioned into two types of modules
   - `datapath`: performs data-processing operation
   - `control unit': coordinates those operations
 - elementary register operations (microoperations):
@@ -54,12 +54,12 @@ Register transfer operations
   - R2 ← R1
   - with a condition: K₁: R2 ← R1
     - if (K₁=1) then (R2 ← R1)
-    - p5. hardware implementation
+    - (p5). hardware implementation
 
 
 Basic symbols for register transfers
 ---
-- p6. 
+- (p6). 
 - two or more parallel register transfers:
   - K₃: R2 ← R1, R3 ← R4
 - description in HDL p7
@@ -77,21 +77,90 @@ Four types of microoperations
 
 Arithmetic microoperations
 ---
-- p8.  add, subtract, increment, decrement, and complement
-- p9. Implementation of Add and Subtract Microoperations
+- (p8).  add, subtract, increment, decrement, and complement
+- (p9). Implementation of Add and Subtract Microoperations
   - X'K₁: R1 ← R1 + R2 (S=0)
-  - XK₁: R1 ← R1 + R2' + 1 (S=1)
-  - K₁ loads the result into R1
+    - X'K₁ = 1 when X'=0 and K₁ = 1
+  - XK₁: R1 ← R1 + (R2' + 1) (S=1)
+    - XK₁ = 1 when X=1 and K₁ = 1
+  - K₁ = 0, inhibits the operations
+  - together can be simplified
+    - X'K₁+XK₁ = (X'+X)K₁ = K₁
+    - K₁ loads the result into R1
+    - X selects the operation
 
 
 Logic microoperations
 ---
-- p10.
+- (p10)
+
+
+🍎 Example
+---
+❶ The meaning of a symbol depends on its context:
+- (K1 + K2 ): R1 ← R2 + R3, R4 ← R5 ∨ R6
+  - K1 + K2 means K1 OR K2
+  - R2 + R3 means the sum of R2 and R3
+  - R5 ∨ R6 means R5 or R6
+
+❷ Implementation of logic microoperations
+- The NOT of a register of n bits is obtained with n NOT gates in parallel
+- The AND microoperation is obtained using a group of n AND gates
+  - each receiving a pair of corresponding inputs from the two source registers
+  - The outputs of the AND gates are applied to the corresponding inputs of the destination register
+- The OR and exclusive-OR (XOR) microoperations require a similar arrangement of gates
+
+❸ The logic microoperations can `change` bit values such as
+- The `AND` microoperation can be used for `clearing` one or more bits in a register to 0
+  - `clear` a group of bits:  `X ⋅ 0 = 0 and X ⋅ 1 = X`
+- The `OR` microoperation is used to `set` one or more bits in a register
+  - `set` a group of bits: `X + 1 = 1 and X + 0 = X`
+- The `XOR` (exclusive-OR) microoperation can be used to `complement or negate` one or more bits in a register
+  - `complement` a group of bits in a register: `X ⊕ 1 = X' and X ⊕ 0 = X`
+- ➀ clear the most significant 8 bits of R1
+  - (data) R1 = `11001010` 01011101 
+  - (mask) R2 = `00000000` 11111111
+  - after R1 ← R1 ∧ R2: R1 = `00000000` 01011101
+- ➁ set the most significant 8 bits of R1
+  - (data) R1 = `11001010` 01011101 
+  - (mask) R2 = `11111111` 00000000
+  - after R1 ← R1 ∨ R2: R1 = `11111111` 01011101
+- ➂ complement the most significant 8 bits of R1
+  - (data) R1 = `11001010` 01011101 
+  - (mask) R2 = `11111111` 00000000
+  - after R1 ← R1 ⊕ R2: R1 = `00110101` 01011101
 
 
 Shift microoperations
 ---
-- p11.
+- (p11) many applications
+  - lateral movement of data
+  - serial transfer of data
+  -  manipulating the contents of registers in arithmetic, logical, and control operations
+- The contents of a source register can be shifted either right or left
+- The destination register for a shift microoperation may be 
+  - the same as or different from the source register
+  - A `left` shift is toward the `most` significant bit 
+  - A `right` shift is toward the `least` significant bit
+- The `incoming bit` is 
+  - the `rightmost` bit of the `destination` register for a `left`-shift microoperation
+  - the `leftmost` bit of the `destination` register for a `right`-shift microoperation
+- The incoming bit may have different values depending upon the type of shift microoperation
+  - here it is assumed to be 0 for both sr and sl
+- The `outgoing` bit is 
+  - the `leftmost` bit of the `source` register for the `left`-shift operation
+  - the `rightmost` bit of the `source` register for the `right`-shift operation
+  - here the outgoing bit value is simply `discarded`
+
+
+🍎 Example
+---
+if R0 = `1010 0101`, R2 = `1101 1010`, find the new value of R0, R1 and R2 after the following shits:
+- a `one-bit shift to the right` of the contents of register R0
+  - R0 ← sr R0
+- a transfer of the contents of R2 shifted `one bit to the left` into register R1
+  - R1 ← sl R2
+  - The contents of R2 are not changed by this shift
 
 
 Microoperations on a single register
@@ -99,26 +168,42 @@ Microoperations on a single register
 - microoperations are implemented with combinational logic
   - the logic may be `dedicated` to a single register or
   - shared by a set of destination registers
-- the source of multiple registers can be selected with multiplexer, e.x.
+- (p12) the source of multiple registers can be selected with multiplexer, e.x.
   - if (K₁=1) then (R0←R1) else if (K₂=1) then (R0←R2)
   - which can be implemented as: K₁:R0←R1, K₁'K₂:R0←R2
-- p12-13
+- (p13) generalization: n sources to 1 destination
+  - these sources could to be register outputs or combinational logic implementing microoperations
+    - the first k sources are dedicated logic 
+    - the last n - k sources are either registers or shared logic
+  - The control signals that select a given source are either a single control variable or the OR of all control signals corresponding to the microoperations associated with the source
+    - To force R0 to load for a microoperation, these control signals are ORed together to form the Load signal
+      - Since it is assumed that only one of the control signals is 1 at any time
+    - these signals must be encoded to provide the selection codes for the multiplexer
 
 
 Shift registers
 ---
-- p14. `unidirectional shift register` can shift its stored bits laterally in  one direction
-- p15. with parallel load
-  - shift:Q←sl Q
-  - shift'⋅load:Q←D
-  - p16. function table
-- p17. `bidirectional shift register` with parallel load
+- A `shift` register can shift its stored bits laterally in `one or both directions`
+  - consists of a chain of flip-flops
+    - with the output of one flip-flop connected to the input of the next flip-flop
+    - share a common clock-pulse input that activates the shift
+- (p14). `unidirectional shift register` can shift its stored bits laterally in  one direction
+  - if the current bit values in the flip-flops are `1011`,
+  - ❓ what are their values after 1, 2, 3, 4, ⋯, n clocks if 
+    - SI = 0? (`zero extension`)
+    - SI = 1? (`one extension`)
+- (p15). shift register with parallel load
+  - used for converting incoming `parallel` data to outgoing `serial` data and vice versa
+  - shift: Q←sl Q
+  - shift'⋅load: Q←D
+  - (p16). function table
+- (p17). `bidirectional shift register` with parallel load
   - can shift in both directions
-  - p17.a each stage consists of a D flip-flop and a 4–to–1-line multiplexer
-    - S1'S0: Q←sl Q
-    - S1S0': Q←sr Q
+  - (p17.a) each stage consists of a D flip-flop and a 4–to–1-line multiplexer
+    - S1'S0: Q←sl Q (Qᵢ ← Qᵢ₋₁)
+    - S1S0': Q←sr Q (Qᵢ → Qᵢ₋₁)
     - S1S0 : Q← Q
-  - p18. function table
+  - (p18). function table
 
 
 Ripple counter
@@ -129,18 +214,18 @@ Ripple counter
     - from 0 through 2ⁿ-1
 - two types of counters
   - ripple counters: the flip-flop output transitions serve as the sources for triggering the changes in other flip-flops
-    - p19. a 4-bit ripple counter
-    - p20. counting sequence, 💡show 0011 to 0100
+    - (p19). a 4-bit ripple counter
+    - (p20). counting sequence, 💡show 0011 to 0100
   - synchronous counters
 
 
 Synchronous binary counters
 ---
 - a clock applied to the C inputs of all flip-flops
-- p21. a 4-bit synchronous binary counter
-  - p21.a serial gating for serial counter 
-  - p21.b parallel gating for parallel counter
-- p22. a 4-bit synchronous binary counter with parallel load
+- (p21). a 4-bit synchronous binary counter
+  - (p21).a serial gating for serial counter 
+  - (p21).b parallel gating for parallel counter
+- (p22). a 4-bit synchronous binary counter with parallel load
   - only three operations are provided: 
     - Load (10), Count (01), and Hold (00)
   - for (11), a load occurs
@@ -169,7 +254,7 @@ Other counters
 💡 Design a BCD counter directly
 ---
 - count from 0000 through 1001, followed by 0000
-- p24. state table and flip-flop inputs for BCD counter
+- (p24). state table and flip-flop inputs for BCD counter
   - the unused states for minterms 1010 through 1111 are used as don't-care conditions
 - simplified input equations for the BCD counter
   - D₁=Q₁'
@@ -190,7 +275,7 @@ Other counters
   - DA = A⨁B
   - DB = C
   - DC = B'C'
-- p26.a logic diagram
-  - p26.b state diagram
+- (p26.a) logic diagram
+  - (p26.b) state diagram
     - if the circuit ever goes to one of the unused states, 
     - the next count pulse transfers it to one of the valid states

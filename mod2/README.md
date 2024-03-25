@@ -10,5 +10,7 @@ __Computer Building Blocks__
 - [Sequential logic](./seq.ipynb)
   - outputs $\vec{y}$ depend on inputs $\vec{x}$ and current state $\vec{S}$
   - $\vec{y} = f(\vec{x},\vec{S})$
-- [Register](./reg.ipynb)
-- [Memory](./mem.ipynb)
+- [Register](./reg.md)
+  - [nb format](./reg.ipynb)
+- [Memory](./mem.md)
+  - [nb format](./mem.ipynb)
