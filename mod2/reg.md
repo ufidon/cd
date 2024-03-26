@@ -155,7 +155,7 @@ Shift microoperations
 
 🍎 Example
 ---
-if R0 = `1010 0101`, R2 = `1101 1010`, find the new value of R0, R1 and R2 after the following shits:
+if R0 = `1010 0101`, R2 = `1101 1010`, find the new value of R0, R1 and R2 after the following shifts:
 - a `one-bit shift to the right` of the contents of register R0
   - R0 ← sr R0
 - a transfer of the contents of R2 shifted `one bit to the left` into register R1
