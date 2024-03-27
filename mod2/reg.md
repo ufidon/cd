@@ -204,6 +204,42 @@ Shift registers
     - S1S0': Q←sr Q (Qᵢ → Qᵢ₋₁)
     - S1S0 : Q← Q
   - (p18). function table
+- Behavioral Verilog description of 4-bit left shift register with direct reset
+```verilog
+module srg_4_r_v (CLK, RESET, SI, Q,SO);
+  input CLK, RESET, SI;
+  output [3:0] Q;
+  output SO;
+
+  reg [3:0] Q;
+  assign SO = Q[3];
+  always @(posedge CLK or posedge RESET)
+  begin
+    if (RESET)
+      Q <= 4'b0000;
+    else
+      Q <= {Q[2:0], SI};
+  end
+endmodule
+```
+- Behavioral VHDL description of 4-bit left shift register with direct reset
+```vhdl
+architecture behavioral of srg_4_r is
+signal shift : std_logic_vector(3 downto 0);
+begin
+process (RESET, CLK)
+begin
+  if (RESET = '1') then
+    shift <= "0000";
+  elsif (CLK’event and (CLK = '1')) then
+    shift <= shift(2 downto 0) & SI;
+  end if;
+end process;
+  Q <= shift;
+  SO <= shift(3);
+end behavioral;
+```
+
 
 
 Ripple counter
@@ -275,6 +311,42 @@ Synchronous binary counters
     - starts with an all-zero output
     - the count input is always active
     - counts from 0000 through 1001, followed by 0000
+- Behavioral Verilog description of 4-bit binary counter with direct reset
+```verilog
+module count_4_r_v (CLK, RESET, EN, Q, CO);
+  input CLK, RESET, EN;
+  output [3:0] Q;
+  output CO;
+
+  reg [3:0] Q;
+  assign CO = (count == 4'b1111 && EN == 1’b1) ? 1 : 0;
+  
+  always @(posedge CLK or posedge RESET)
+  begin
+    if (RESET)
+      Q <= 4'b0000;
+    else if (EN)
+      Q <= Q + 4'b0001;
+  end
+endmodule
+```
+- Behavioral VHDL description of 4-bit binary counter with direct reset
+```vhdl
+architecture behavioral of count_4_r is
+signal count : std_logic_vector(3 downto 0);
+begin
+process (RESET, CLK)
+begin
+  if (RESET = '1') then
+    count <= "0000";
+  elsif (CLK'event and (CLK = '1') and (EN = '1')) then
+    count <= count + "0001";
+  end if;
+end process;
+  Q <= count;
+  CO <= '1' when count = "1111" and EN = '1' else '0';
+end behavioral;
+```
 
 
 Up-down binary counter
@@ -283,11 +355,11 @@ Up-down binary counter
 - A up binary counter goes through 0000 to 1111 and back to 0000 to repeat the count
 - they can be combined into a up-down binary counter by 
   - contracting an adder–subtractor into an incrementer–decrementer
-- can be designed directly from counter behavior with the following flip-flop input equations:
-  - Dₐ₀ = Q₀ ⊕ EN
-  - Dₐ₁ = Q₁ ⊕ ((Q₀S' + Q₀'S)EN)
-  - Dₐ₂ = Q₂ ⊕ ((Q₀Q₁S' + Q₀'Q₁'S)EN)
-  - Dₐ₃ = Q₃ ⊕ ((Q₀Q₁Q₂S' + Q₀'Q₁'Q₂'S)EN)
+- can be designed directly from counter behavior with the following flip-flop [input equations](https://www.boolean-algebra.com/kmap/):
+  - D<sub>A0</sub> = Q₀ ⊕ EN
+  - D<sub>A1</sub> = Q₁ ⊕ ((Q₀S' + Q₀'S)EN)
+  - D<sub>A2</sub> = Q₂ ⊕ ((Q₀Q₁S' + Q₀'Q₁'S)EN)
+  - D<sub>A3</sub> = Q₃ ⊕ ((Q₀Q₁Q₂S' + Q₀'Q₁'Q₂'S)EN)
   - S = 0 for up-counting and S = 1 for down-counting
   - EN = 1 for normal up- or down-counting and EN = 0 for disabling both counts
 
@@ -298,15 +370,18 @@ Other counters
 - A `divide-by-N counter` (or `modulo-N counter`)
   - goes through a repeated sequence of N states following
     - the binary count or any other arbitrary sequence
+  - needs `⌈log₂N⌉` flip-flops
+- designed with the methods for synchronous sequential circuits
 
 
 
 💡 Design a BCD counter directly
 ---
-- count from 0000 through 1001, followed by 0000
+- count from `0000(0)` through `1001(9)`, followed by 0000
+  - a `module-10` counter needs `⌈log₂10⌉ = 4` flip-flops
 - (p24). state table and flip-flop inputs for BCD counter
   - the unused states for minterms 1010 through 1111 are used as don't-care conditions
-- simplified input equations for the BCD counter
+- simplified [input equations](https://www.boolean-algebra.com/kmap/) for the BCD counter
   - D₁=Q₁'
   - D₂=Q₂⨁Q₁Q₈'
   - D₄=Q₄⨁Q₁Q₂
@@ -317,15 +392,18 @@ Other counters
 💡 Design an arbitrary counter
 ---
 - repeat a sequence of six states specified in (p25)
+  - it needs `⌈log₂6⌉ = 3` flip-flops
   - flip-flops B and C repeat the binary count 00, 01, 10
   - flip-flop A alternates between 0 and 1 every three counts
   - state 011 and 111 are not included in the count
     - can be used as don't-care conditions
-- simplified input equations
-  - DA = A⨁B
-  - DB = C
-  - DC = B'C'
+- simplified [input equations](https://www.boolean-algebra.com/kmap/)
+  - D<sub>A</sub> = A⨁B
+  - D<sub>B</sub> = C
+  - D<sub>C</sub> = B'C'
 - (p26.a) logic diagram
   - (p26.b) state diagram
     - if the circuit ever goes to one of the unused states, 
     - the next count pulse transfers it to one of the valid states
+    - 🏃 verify them on the circuit diagram
+- 🏃 reimplement this counter with a 4-bit binary counter
