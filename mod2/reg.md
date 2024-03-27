@@ -209,28 +209,71 @@ Shift registers
 Ripple counter
 ---
 - A `counter` goes through a prescribed sequence of distinct states
+  - upon the application of a sequence of `input pulses`
+  - may be clock pulses or other pulses that may occur at `regular or irregular `intervals of time
 - A `binary counter` follows the binary number sequence
   - An n-bit binary counter consists of n flip-flops and can count in binary 
     - from 0 through 2ⁿ-1
 - two types of counters
   - ripple counters: the flip-flop output transitions serve as the sources for triggering the changes in other flip-flops
+    - i.e. the C inputs of some of the flip-flops are triggered not by the common clock pulse, but rather by the transitions that occur on other flip-flop outputs
     - (p19). a 4-bit ripple counter
+      - this is an `upward` counter
+      - the application of a positive edge to the C input of each flip-flop causes the flip-flop to complement its state
+      - The complemented output of each flip-flop is connected to the C input of the next most significant flip-flop
+      - The flip-flop holding the least significant bit receives the incoming clock pulses. 
+      - Positive-edge triggering makes each flip-flop complement its value when the signal on its C input goes through a positive transition. 
+      - The positive transition occurs when the complemented output of the previous flip-flop, to which C is connected, goes from 0 to 1.
+      - A 1-level signal on Reset driving the R inputs clears the register to all zeros asynchronously.
+      - The count starts at binary 0 and increments by one with each count pulse. After the count of 15, the counter goes back to 0 to repeat the count.
     - (p20). counting sequence, 💡show 0011 to 0100
+      - 0011 → 0010 → 0000 → 0100
+        - The flip-flops `change one at a time in quick succession` as the signal propagates through the counter in a `ripple fashion` from one stage to the next
+      - `Downward` counting can be accomplished by connecting the `true output` of each flip-flop to the C input of the next flip-flop
+    - advantages
+      - simple hardware
+    - disadvantages
+      - there are delay dependence and unreliable operation as asynchronous circuits  with added logic
+      - particularly true for logic that provides feedback paths from counter outputs back to counter inputs
+      - due to the length of time required for the `ripple` to finish, `large ripple` counters can be `slow` circuits.
   - synchronous counters
+    - the C inputs of all flip-flops receive the common clock pulse, and the change of state is determined from the present state of the counter
 
 
 Synchronous binary counters
 ---
-- a clock applied to the C inputs of all flip-flops
+- a `common clock` applied to the C inputs of all flip-flops
+  - its pulse triggers all flip-flops simultaneously rather than one at a time as in a ripple counter
 - (p21). a 4-bit synchronous binary counter
-  - (p21).a serial gating for serial counter 
-  - (p21).b parallel gating for parallel counter
+  - The polarity of the clock is not essential here as it was for the ripple counter
+  - The synchronous counter can be designed to trigger with either the positive or the negative clock transition
+- (p21).a `serial gating` for serial counter
+  - used a chain of 2-input AND gates to provide information to each stage about the state of the prior stages in the counter
+  - analogous to the carry logic in the `ripple carry adder`
+- (p21).b `parallel gating` for parallel counter
+  - with counter logic analogous to the `carry lookahead adder`
+  - replaces the dashed blue box in (p21).a with (p21).b
+  - advantage:
+    - in going from state 1111 to state 0000, only one AND-gate delay occurs instead of the four AND-gate delays that occur for the serial counter
+    - This reduction in delay allows the counter to operate much faster
+  - An 8-bit serial-parallel counter can be created by connecting two 4-bit parallel counters together by connecting the CO output of one to the EN input of the other
+    - The idea can be extended to counters of any length
+    - parallel gating logic can be used to replace the serial connections between the 4-bit segments to construct large, fast counters
 - (p22). a 4-bit synchronous binary counter with parallel load
+  - controlled by two inputs `Load` and `Count` of four combinations
   - only three operations are provided: 
     - Load (10), Count (01), and Hold (00)
   - for (11), a load occurs
     - This is sometimes described as `Load overriding Count`
-  - can be converted into a BCD counter p23
+  - The implementation uses an `incrementer` plus `2n + 1 ENABLEs`, `a NOT gate`, and `n 2-input OR gates`
+    - The `first n ENABLEs` with enable input Load are used to enable and disable the parallel load of input data D
+    - The `second n ENABLEs` with enable input Load on the incrementer outputs are used to disable both the count and hold operations when Load = 1
+    - When Load = 0, both count and hold are enabled
+    - Without the additional ENABLE, Count = 1, causes counting, and Count = 0, the hold operation occurs
+    - Counting is disabled by the Load' signal and loading is enabled by Load
+  - can be converted into a BCD counter (p23)
+    - starts with an all-zero output
+    - the count input is always active
     - counts from 0000 through 1001, followed by 0000
 
 
@@ -240,6 +283,13 @@ Up-down binary counter
 - A up binary counter goes through 0000 to 1111 and back to 0000 to repeat the count
 - they can be combined into a up-down binary counter by 
   - contracting an adder–subtractor into an incrementer–decrementer
+- can be designed directly from counter behavior with the following flip-flop input equations:
+  - Dₐ₀ = Q₀ ⊕ EN
+  - Dₐ₁ = Q₁ ⊕ ((Q₀S' + Q₀'S)EN)
+  - Dₐ₂ = Q₂ ⊕ ((Q₀Q₁S' + Q₀'Q₁'S)EN)
+  - Dₐ₃ = Q₃ ⊕ ((Q₀Q₁Q₂S' + Q₀'Q₁'Q₂'S)EN)
+  - S = 0 for up-counting and S = 1 for down-counting
+  - EN = 1 for normal up- or down-counting and EN = 0 for disabling both counts
 
 
 Other counters
@@ -266,7 +316,7 @@ Other counters
 
 💡 Design an arbitrary counter
 ---
-- repeat a sequence of six states specified in p25
+- repeat a sequence of six states specified in (p25)
   - flip-flops B and C repeat the binary count 00, 01, 10
   - flip-flop A alternates between 0 and 1 every three counts
   - state 011 and 111 are not included in the count
