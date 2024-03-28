@@ -263,7 +263,7 @@ Ripple counter
       - A 1-level signal on Reset driving the R inputs clears the register to all zeros asynchronously.
       - The count starts at binary 0 and increments by one with each count pulse. After the count of 15, the counter goes back to 0 to repeat the count.
     - (p20). counting sequence, 💡show 0011 to 0100
-      - 0011 → 0010 → 0000 → 0100
+      - 0011 → (Q₀,Q₀'):(1↓0, 0↑1) → 0010 → (Q₁,Q₁'):(1↓0, 0↑1) → 0000 → (Q₂,Q₂'):(0↓1, 1↓0) → 0100
         - The flip-flops `change one at a time in quick succession` as the signal propagates through the counter in a `ripple fashion` from one stage to the next
       - `Downward` counting can be accomplished by connecting the `true output` of each flip-flop to the C input of the next flip-flop
     - advantages
