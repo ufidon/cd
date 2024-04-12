@@ -188,14 +188,29 @@ Instruction Formats
   - The 3-bit `Operand (OP)` is a constant called an `immediate operand`
     - immediately available in the instruction
     - to become a 16-bit operand, the remaining 13 bits must be `zero-filled or sign-extended`
-- (p21.c) Jump and branch: 
-
+- (p21.c) Jump and branch:
+  - affects the order in which the instructions are fetched from memory without changing any register file or memory contents
+  - `Branch` provides branch addresses within a small range below and above the PC
+value
+    - condition(SA): PC ← PC + AD[8:6,2:0] in `signed 2s complement`
+      - range: -2⁴=-16 to 2⁴-1=15
+    - AD[8:6,2:0] is called the `address offset`. It is extended to be 16 bits offset A before addition. A[4:0]=AD[7:6,2:0] and
+      - if AD[8]=1, A[15:5]=1 (sign extension) for negative numbers
+      - if AD[8]=0, A[15:5]=0 (zero fill) for positive numbers
+  - `Jump` provides a broader range of addresses by using the unsigned contents of a 16-bit register as the jump target
+    - range: 0 to 2¹⁶-1=65535
 
 
 
 Instruction Specifications
 ---
-
+- (p22-23) symbolically describe `each of the distinct instructions` 
+  - `mnemonic` for the opcode
+  - other symbols for all other fields
+- This `symbolic representation` is called `assembly language`
+  - converted into `binary representation` by a program called `assembler`
+- (p24) shows a piece of memory containing instructions and data
+  - 🏃 decode each line
 
 
 Single-cycle hardwired control
