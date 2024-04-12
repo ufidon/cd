@@ -180,15 +180,17 @@ Instruction Formats
   - `operands` are the data manipulated by operations
     - stored in registers or memory
     - `specified explicitly` by special bits in the instructions for their locations
-      - such as (p21.a) Register: DR ← SA + SB
+      - such as `(p21.a) Register`: 
+        - ADD: DR ← SA + SB
+        - STORE: M[SA] ← SB   'M[SA] is the memory location with address in SA
     - `defined implicitly` as a part of the definition of the opcode
       - such as an Increment Register operation
         - one of the operands is implicitly +1
-- (p21.b) Immediate: DR ← SA opcode OP
+- `(p21.b) Immediate`: DR ← SA opcode OP
   - The 3-bit `Operand (OP)` is a constant called an `immediate operand`
     - immediately available in the instruction
     - to become a 16-bit operand, the remaining 13 bits must be `zero-filled or sign-extended`
-- (p21.c) Jump and branch:
+- `(p21.c) Jump and branch`:
   - affects the order in which the instructions are fetched from memory without changing any register file or memory contents
   - `Branch` provides branch addresses within a small range below and above the PC
 value
@@ -210,14 +212,114 @@ Instruction Specifications
 - This `symbolic representation` is called `assembly language`
   - converted into `binary representation` by a program called `assembler`
 - (p24) shows a piece of memory containing instructions and data
+  - Suppose 
+    - R4 contains 70 and R5 contains 80
+    - the addition to the PC content occurs before the PC has been incremented
   - 🏃 decode each line
 
 
 Single-cycle hardwired control
 ---
+- (p25.l) fetches and executes an instruction in a single clock cycle
+- has a `load/store` architecture since it has dedicated `load and store instructions`
+- The PC is updated in each clock cycle
+  - determined by the opcode and status flags such as N and Z
+  - incremented by 1 by default
+  - or jump or branch to a new address = PC + offset
 
+
+
+Instruction Decoder
+---
+- (p26) a combinational circuit that provides `control words`(p15) for the datapath
+  - based on the contents of the `instruction`
+- Some fields of the control word can be obtained directly from the instruction
+  - (DA,AA,BA) = (DR, SA, SB)
+  - BC that selects branch condition status bit = Opcode[9]
+  - datapath and data memory control bits MB, MD, RW, and MW
+  - PL and JB control PC 
+    - `PL = 1` loads the PC if there is to be a jump or branch
+    - `PL = 0` increments PC
+    - `PL = 1, JB = 1` calls for a jump
+    - `JB = 0` calls for a conditional branch
+- the logic circuit in (p26) is derived from truth table (p27)
+  - optimized with those don’t-care (X) entries
+
+
+💡 Demo
+---
+- ❶ Run the sample instructions in (p28) on (p25)
+- ❷ An example assembly program 
+  - calculates: 
+    - 83 - (2 + 3) ;represented in signed 2s complement
+  - given
+    - M[R3] = 2; R3=248
+    - M[249] = 83
+    - M[250] saves result
+```nasm
+LD    R1,R3     ;Load R1 with contents of location 248 in memory (R1 = 2)
+ADI   R1, R1,3  ;Add 3 to R1 (R1 = 5)
+NOT   R1, R1    ;Complement R1
+INC   R1, R1    ;Increment R1 (R1 = - 5)
+INC   R3, R3    ;Increment the contents of R3 (R3 = 249)
+LD    R2, R3    ;Load R2 with contents of location 249 in memory (R2 = 83)
+ADD   R2, R2,   ;R1 Add contents of R1 to contents of R2 (R2 = 78)
+INC   R3, R3    ;Increment the contents of R3 (R3 = 250)
+ST    R3, R2    ;Store R2 in memory location 250 (M[250] = 78)
+```
+
+Single-Cycle Computer (SCC) Issues
+---
+- Many complex operations can't be done in one clock cycle
+  - such as the division of float point numbers
+- Accessing instruction and data from the same memory needs two clock cycles
+  - the single-cycle computer above has two distinct 16-bit memories 
+    - one for instructions and one for data
+- The SCC has a lower limit on the clock period based on a long `worst-case delay` path
+  - (p29) has a total delay along the path of 9.8 ns
+    - limits the clock frequency to about 102 MHz
+  - can be relieved by reducing the number of components in the longest combinational delay path through `pipeline`
 
 
 Multiple-cycle hardwired control
 ---
+- (p30) uses a `single memory` for both data and instructions
+- implements more complex instructions by saving the instruction in the `instruction register IR` across `multiple clock cycles`
+- added `temporary storage registers 8 through 15` used only during instruction execution
+  - `R8-15` are not part of the storage resources visible to the user
+- divides the `control word` into two parts
+  - `Sequence control` determines the `next state` of the overall control unit 
+  - `Datapath control` controls the `microoperations` executed by the Datapath and Memory M
 
+
+Multiple-Cycle Computer (MCC) control word
+---
+- shown in (p31)
+  - the fields DX, AX, and BX control the register selection
+    - DA ← 0 ∥ DR if msb(DX) = 0 else DX
+    - AA ← 0 ∥ SA if msb(AX) = 0 else AX
+    - BA ← 0 ∥ SB if msb(BX) = 0 else BX
+- fields for 
+  - datapath defined in (p32)
+  - sequence control in (p33)
+    - `NS` provides the `next state` for the Control State Register (CSR)
+    - `PS` controls the program counter PC
+      - `00` holds PC
+      - `01` increments PC by 1
+      - `10` conditionally loads PC plus sign-extended AD
+      - `11` unconditionally loads the contents of R[SA]
+    - `IL` controls IR loading
+      - a `new` instruction is `loaded` when `IL = 1`
+      - the instruction remains `unchanged` when `IL = 0`
+
+
+Sequential Control Design
+---
+- separate the cycles into two processing steps:
+  - instruction `fetch` and instruction `execution`
+- the `partial state diagram` for the two-cycle instructions is given in (p34)
+  - the instruction fetch occurs in state `INF`
+  - in state `EX0`, the instruction is `decoded` and the microoperations executing `all or part` of the instruction appear in Mealy-type outputs
+    - If additional states are required for instruction execution, the next state is `EX1` (p35) or more (p36)
+  - unused opcodes will be don’t-care inputs (p37-38)
+    - or cause an exception that signals their presence
