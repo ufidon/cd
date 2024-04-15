@@ -195,7 +195,7 @@ Instruction Formats
   - `Branch` provides branch addresses within a small range below and above the PC
 value
     - condition(SA): PC ← PC + AD[8:6,2:0] in `signed 2s complement`
-      - range: -2⁴=-16 to 2⁴-1=15
+      - range: -2⁵=-32 to 2⁵-1=31
     - AD[8:6,2:0] is called the `address offset`. It is extended to be 16 bits offset A before addition. A[4:0]=AD[7:6,2:0] and
       - if AD[8]=1, A[15:5]=1 (sign extension) for negative numbers
       - if AD[8]=0, A[15:5]=0 (zero fill) for positive numbers
