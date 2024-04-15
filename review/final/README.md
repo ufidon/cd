@@ -23,4 +23,26 @@ Given the devices below,
 
 Q2
 ---
-- Review homework 4-6
+- Describe the three ways representing sequential circuits
+- How to convert a one-dimensional state table to/from a two-dimensional state table? 
+
+
+Q4
+---
+- What is the difference between a Moore machine and a Mealy machine?
+
+
+Q5
+---
+To create a memory of 512K×32, how many 128K×8 RAMs are needed?
+
+
+Qh
+---
+Review homework 4-6
+- homework 4:
+  - Q3, Q5
+- homework 5:
+  - Q1, Q2, Q4
+- homework 6:
+  - Q5
