@@ -257,15 +257,15 @@ Instruction Decoder
     - M[249] = 83
     - M[250] saves result
 ```nasm
-LD    R1,R3     ;Load R1 with contents of location 248 in memory (R1 = 2)
-ADI   R1, R1,3  ;Add 3 to R1 (R1 = 5)
-NOT   R1, R1    ;Complement R1
-INC   R1, R1    ;Increment R1 (R1 = - 5)
-INC   R3, R3    ;Increment the contents of R3 (R3 = 249)
-LD    R2, R3    ;Load R2 with contents of location 249 in memory (R2 = 83)
-ADD   R2, R2,   ;R1 Add contents of R1 to contents of R2 (R2 = 78)
-INC   R3, R3    ;Increment the contents of R3 (R3 = 250)
-ST    R3, R2    ;Store R2 in memory location 250 (M[250] = 78)
+LD    R1, [R3]    ;Load R1 with contents of location 248 in memory (R1 = 2)
+ADI   R1, R1, 3   ;Add 3 to R1 (R1 = 5)
+NOT   R1, R1      ;Complement R1
+INC   R1, R1      ;Increment R1 (R1 = - 5)
+INC   R3, R3      ;Increment the contents of R3 (R3 = 249)
+LD    R2, [R3]    ;Load R2 with contents of location 249 in memory (R2 = 83)
+ADD   R2, R2, R1  ;Add contents of R1 to contents of R2 (R2 = 78)
+INC   R3, R3      ;Increment the contents of R3 (R3 = 250)
+ST    [R3], R2    ;Store R2 in memory location 250 (M[250] = 78)
 ```
 
 Single-Cycle Computer (SCC) Issues
